@@ -32,7 +32,6 @@ class Register {
             // var_dump($stmt);
 			return true;
 		} else {
-            var_dump($this->jurusan);
 			return false;
 		}
 	}

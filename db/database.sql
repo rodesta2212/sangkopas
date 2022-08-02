@@ -2,7 +2,7 @@
 MySQL Backup
 Source Server Version: 5.1.31
 Source Database: hayun
-Date: 8/1/2022 19:29:17
+Date: 8/2/2022 21:40:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -43,8 +43,8 @@ DROP TABLE IF EXISTS `produk`;
 CREATE TABLE `produk` (
   `id_produk` int(11) NOT NULL DEFAULT '0',
   `nama` varchar(255) DEFAULT NULL,
-  `kategori` enum('Makanan','Minuman','Snack') DEFAULT NULL,
-  `harga` int(11) DEFAULT NULL,
+  `kategori` varchar(255) DEFAULT NULL,
+  `harga` varchar(11) DEFAULT NULL,
   `foto` varchar(255) DEFAULT NULL,
   `keterangan` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_produk`)
@@ -93,5 +93,6 @@ CREATE TABLE `user` (
 -- ----------------------------
 --  Records 
 -- ----------------------------
-INSERT INTO `pelanggan` VALUES ('1','3','Ricky Rodesta','ricky@mail.com','81236721821','laki','1995-12-22');
-INSERT INTO `user` VALUES ('1','admin','admin','admin','Admin Sang Kopas'), ('2','kasir','kasir','kasir','Kasir Sang Kopas'), ('3','ricky','ricky','pelanggan',NULL);
+INSERT INTO `pelanggan` VALUES ('1','3','Ricky Rodesta','ricky@mail.com','81236721821','laki','1995-12-22'), ('2','4','Nisa Wiguna','nisa@mail.com','81293212347','perempuan','1998-10-15');
+INSERT INTO `produk` VALUES ('1','asdasdas','makanan','23242','nasigoreng.jpg','asdasdadas'), ('2','sadasdasd','minuman','213213','nasigoreng.jpg','asdasdasda'), ('3','Ayam Kremes','makanan','15000','ayamkremes.jpg','Ayam Kremes tidak termasuk nasi');
+INSERT INTO `user` VALUES ('1','admin','admin','admin','Admin Sang Kopas'), ('2','kasir','kasir','kasir','Kasir Sang Kopas'), ('3','ricky','ricky','pelanggan',NULL), ('4','nisa','nisa','pelanggan',NULL);

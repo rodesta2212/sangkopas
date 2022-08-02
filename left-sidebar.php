@@ -19,15 +19,20 @@
 					<?php if ($_SESSION['role'] == 'admin'): ?>
 						<!-- Admin -->
 						<li>
-							<a href="aspirasi.php" class="dropdown-toggle no-arrow">
-								<span class="micon dw dw-edit-file"></span><span class="mtext">Aspirasi</span>
+							<a href="pelanggan.php" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-user1"></span><span class="mtext">Pelanggan</span>
+							</a>
+						</li>
+						<li>
+							<a href="produk.php" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-price-tag"></span><span class="mtext">Produk</span>
 							</a>
 						</li>
 					<?php elseif ($_SESSION['role'] == 'kasir'): ?>
 						<!-- Kasir -->
 						<li>
-							<a href="aspirasi.php" class="dropdown-toggle no-arrow">
-								<span class="micon dw dw-edit-file"></span><span class="mtext">Aspirasi</span>
+							<a href="pelanggan.php" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-user1"></span><span class="mtext">Pelanggan</span>
 							</a>
 						</li>
 					<?php else: ?>

@@ -131,7 +131,7 @@
 											</div>
 										</div>
 										<div class="form-group row">
-											<label class="col-sm-4 col-form-label">tgl_lahir<span style="color:red;">*</span></label>
+											<label class="col-sm-4 col-form-label">Tanggal Lahir<span style="color:red;">*</span></label>
 											<div class="col-sm-8">
 												<input type="date" class="form-control" name="tgl_lahir" required>
 											</div>
