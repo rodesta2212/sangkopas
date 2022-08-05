@@ -72,7 +72,7 @@ class Produk {
 	}
 
 	function readAllMinuman() {
-		$query = "SELECT * FROM {$this->table_produk} ORDER BY id_produk ASC";
+		$query = "SELECT * FROM {$this->table_produk} WHERE kategori = 'minuman' ORDER BY id_produk ASC";
 		$stmt = $this->conn->prepare( $query );
 		$stmt->execute();
 
@@ -80,7 +80,7 @@ class Produk {
 	}
 
 	function readAllSnack() {
-		$query = "SELECT * FROM {$this->table_produk} ORDER BY id_produk ASC";
+		$query = "SELECT * FROM {$this->table_produk} WHERE kategori = 'snack' ORDER BY id_produk ASC";
 		$stmt = $this->conn->prepare( $query );
 		$stmt->execute();
 

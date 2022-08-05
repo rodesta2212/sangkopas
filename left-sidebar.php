@@ -28,6 +28,11 @@
 								<span class="micon dw dw-price-tag"></span><span class="mtext">Produk</span>
 							</a>
 						</li>
+						<li>
+							<a href="diskon.php" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-money-2"></span><span class="mtext">Diskon</span>
+							</a>
+						</li>
 					<?php elseif ($_SESSION['role'] == 'kasir'): ?>
 						<!-- Kasir -->
 						<li>
@@ -35,11 +40,16 @@
 								<span class="micon dw dw-user1"></span><span class="mtext">Pelanggan</span>
 							</a>
 						</li>
+						<li>
+							<a href="diskon.php" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-money-2"></span><span class="mtext">Diskon</span>
+							</a>
+						</li>
 					<?php else: ?>
 						<!-- Pelanggan -->
 						<li>
-							<a href="aspirasi-mahasiswa.php?id=<?php echo $_SESSION['id_mahasiswa']; ?>" class="dropdown-toggle no-arrow">
-								<span class="micon dw dw-edit-file"></span><span class="mtext">Aspirasi</span>
+							<a href="transaksi.php?id=<?php echo $_SESSION['id_pelanggan']; ?>" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-invoice-1"></span><span class="mtext">Transaksi</span>
 							</a>
 						</li>
 					<?php endif; ?>
