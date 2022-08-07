@@ -169,6 +169,7 @@
 												<h6>Rp. ${val.hargaRp}</h6>
 												<br/>
 												${val.keterangan}
+												<button type="button" class="btn btn-sm btn-success btn-block">Beli</button>
 											</p>
 										</div>
 										</a>
@@ -246,6 +247,7 @@
 												<h6>Rp. ${val.hargaRp}</h6>
 												<br/>
 												${val.keterangan}
+												<button type="button" class="btn btn-sm btn-success btn-block">Beli</button>
 											</p>
 										</div>
 										</a>
