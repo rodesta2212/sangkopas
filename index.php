@@ -132,27 +132,89 @@
 				$('#menuSemua').addClass('active');
 				$('#menuMakanan').removeClass('active');
 				$('#menuMinuman').removeClass('active');
+				$('#menuSnack').removeClass('active');
 				$('#semua').removeClass('d-none')
 				$('#makanan').addClass('d-none')
 				$('#minuman').addClass('d-none')
+				$('#makanan').empty();
+				$('#minuman').empty();
+				$('#snack').empty();
 			}
 
 			const makanan = () => {
 				$('#menuSemua').removeClass('active');
 				$('#menuMakanan').addClass('active');
 				$('#menuMinuman').removeClass('active');
+				$('#menuSnack').removeClass('active');
 				$('#semua').addClass('d-none')
 				$('#makanan').removeClass('d-none')
 				$('#minuman').addClass('d-none')
+				$.ajax({
+					url : "./pelanggan/get_produk_makanan.php",
+					dataType: "JSON",
+					success: function(res){
+						let html = '';
+						$('#makanan').empty();
+						$('#minuman').empty();
+						$('#snack').empty();
+						$.each(res, function(key, val){
+							html += `<div class="col-md-3 mb-20">
+										<a href="#" class="card-box d-block mx-auto pd-20 text-secondary">
+										<div class="img pb-30">
+											<img src="upload/${val.foto}" alt="foto_produk" style="width:300px;">
+										</div>
+										<div class="content">
+											<h3 class="h4">${val.nama}</h3>
+											<p class="max-width-200">
+												<h6>Rp. ${val.hargaRp}</h6>
+												<br/>
+												${val.keterangan}
+											</p>
+										</div>
+										</a>
+									</div>`
+						})
+						$('#makanan').append(html);
+					}
+				})
 			}
 
 			const minuman = () => {
 				$('#menuSemua').removeClass('active');
 				$('#menuMakanan').removeClass('active');
 				$('#menuMinuman').addClass('active');
+				$('#menuSnack').removeClass('active');
 				$('#semua').addClass('d-none')
 				$('#makanan').addClass('d-none')
 				$('#minuman').removeClass('d-none')
+				$.ajax({
+					url : "./pelanggan/get_produk_minuman.php",
+					dataType: "JSON",
+					success: function(res){
+						let html = '';
+						$('#makanan').empty();
+						$('#minuman').empty();
+						$('#snack').empty();
+						$.each(res, function(key, val){
+							html += `<div class="col-md-3 mb-20">
+										<a href="#" class="card-box d-block mx-auto pd-20 text-secondary">
+										<div class="img pb-30">
+											<img src="upload/${val.foto}" alt="foto_produk" style="width:300px;">
+										</div>
+										<div class="content">
+											<h3 class="h4">${val.nama}</h3>
+											<p class="max-width-200">
+												<h6>Rp. ${val.hargaRp}</h6>
+												<br/>
+												${val.keterangan}
+											</p>
+										</div>
+										</a>
+									</div>`
+						})
+						$('#minuman').append(html);
+					}
+				})
 			}
 	
 			const snack = () => {
@@ -164,6 +226,34 @@
 				$('#makanan').addClass('d-none')
 				$('#minuman').addClass('d-none')
 				$('#snack').removeClass('d-none')
+				$.ajax({
+					url : "./pelanggan/get_produk_snack.php",
+					dataType: "JSON",
+					success: function(res){
+						let html = '';
+						$('#makanan').empty();
+						$('#minuman').empty();
+						$('#snack').empty();
+						$.each(res, function(key, val){
+							html += `<div class="col-md-3 mb-20">
+										<a href="#" class="card-box d-block mx-auto pd-20 text-secondary">
+										<div class="img pb-30">
+											<img src="upload/${val.foto}" alt="foto_produk" style="width:300px;">
+										</div>
+										<div class="content">
+											<h3 class="h4">${val.nama}</h3>
+											<p class="max-width-200">
+												<h6>Rp. ${val.hargaRp}</h6>
+												<br/>
+												${val.keterangan}
+											</p>
+										</div>
+										</a>
+									</div>`
+						})
+						$('#snack').append(html);
+					}
+				})
 			}
 	
 	</script>
