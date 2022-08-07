@@ -4,12 +4,12 @@
 <?php
 	include("config.php");
 	include_once('includes/produk.inc.php');
+
 	session_start();
 	if (!isset($_SESSION['id_user'])) echo "<script>location.href='login.php'</script>";
-	$config = new Config(); 
-	$db = $config->getConnection();
-	$produk = new Produk($db);
-	$data_produk = $produk->readAll();
+	$config = new Config(); $db = $config->getConnection();
+
+	$Produk = new Produk($db);
 ?>
 
 <!-- header -->
@@ -55,59 +55,130 @@
 			<?php if ($_SESSION['role'] == 'pelanggan'): ?>
 			<div class="page-header">
 				<div class="row">
-					<div class="col-md-6 col-sm-12">
+					<div class="col-12">
 						<div class="title">
 							<h4>Daftar Produk</h4>
 						</div>
-						<ul class="nav nav-pills">
+						<!-- <nav aria-label="breadcrumb" role="navigation">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+								<li class="breadcrumb-item active" aria-current="page">
+									Dashboard
+								</li>
+							</ol>
+						</nav> -->
+					</div>
+					<div class="col-12">
+						<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 							<li class="nav-item">
-								<a class="nav-link active" id="menuSemua" href="#" onclick="semua()">Semua</a>
-							</li>
-							<li class="nav-item"> 
-								<a class="nav-link" id="menuMakanan" href="#" onclick="makanan()">Makanan</a>
+								<a class="nav-link active" id="pills-semua-tab" data-toggle="pill" href="#pills-semua" role="tab" aria-controls="pills-semua" aria-selected="true">Semua</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" id="menuMinuman" href="#" onclick="minuman()">Minuman</a>
+								<a class="nav-link" id="pills-makanan-tab" data-toggle="pill" href="#pills-makanan" role="tab" aria-controls="pills-makanan" aria-selected="false">Makanan</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" id="menuSnack" href="#" onclick="snack()">Snack</a>
+								<a class="nav-link" id="pills-minuman-tab" data-toggle="pill" href="#pills-minuman" role="tab" aria-controls="pills-minuman" aria-selected="false">Minuman</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" id="pills-snack-tab" data-toggle="pill" href="#pills-snack" role="tab" aria-controls="pills-snack" aria-selected="false">Minuman</a>
 							</li>
 						</ul>
 					</div>
-					<div class="col-md-6 col-sm-12 text-right">
-						<a class="btn btn-success" href="#">Keranjang</a>
-					</div>
 				</div>
 			</div>
-
-			<div class="row" id="semua">
-				<?php foreach($data_produk as $dp):?>
-					<div class="col-md-3 mb-20">
-						<a href="#" class="card-box d-block mx-auto pd-20 text-secondary">
-							<div class="img pb-30">
-							<img src="upload/<?= $dp['foto']?>" alt="foto_produk" style="width:300px;">
-							</div>
-							<div class="content">
-								<h3 class="h4"><?= $dp['nama'] ?></h3>
-								<p class="max-width-200">
-									<h6>Rp. <?= number_format($dp['harga'],0,',','.')?></h6>
-									<br/>
-									<?= $dp['keterangan'] ?>
-								</p>
-							</div>
-						</a>
+			
+			<form method="POST" enctype="multipart/form-data">
+				<div class="tab-content" id="pills-tabContent">
+					<div class="tab-pane fade show active" id="pills-semua" role="tabpanel" aria-labelledby="pills-semua-tab">
+						<div class="row">
+							<?php $Produks = $Produk->readAll(); while ($row = $Produks->fetch(PDO::FETCH_ASSOC)) : ?>
+								<div class="col-md-3 mb-20">
+									<div class="card-box d-block mx-auto pd-20 text-secondary">
+										<div class="img pb-30">
+										<img src="upload/<?=$row['foto']?>" alt="<?=$row['foto']?>" style="width:300px;">
+										</div>
+										<div class="content">
+											<h3 class="h4"><?=ucwords($row['nama'])?></h3>
+											<p class="max-width-200">
+												<h6>Rp. <?=number_format($row['harga'],0,',','.')?></h6>
+												<br/>
+												<?=$row['keterangan']?>
+											</p>
+											<input id="jumlah" type="text" value="0" name="jumlah[]">
+										</div>
+									</div>
+								</div>
+							<?php endwhile; ?>
+						</div>
 					</div>
-				<?php endforeach;?>
-			</div>
-			<div class="row d-none" id="makanan">
-				makanan
-			</div>
-			<div class="row d-none" id="minuman">
-				minuman
-			</div>
-			<div class="row d-none" id="snack">
-				snack
-			</div>
+					<div class="tab-pane fade" id="pills-makanan" role="tabpanel" aria-labelledby="pills-makanan-tab">
+						<div class="row">
+							<?php $Produks = $Produk->readAllMakanan(); while ($row = $Produks->fetch(PDO::FETCH_ASSOC)) : ?>
+								<div class="col-md-3 mb-20">
+									<div class="card-box d-block mx-auto pd-20 text-secondary">
+										<div class="img pb-30">
+										<img src="upload/<?=$row['foto']?>" alt="<?=$row['foto']?>" style="width:300px;">
+										</div>
+										<div class="content">
+											<h3 class="h4"><?=ucwords($row['nama'])?></h3>
+											<p class="max-width-200">
+												<h6>Rp. <?=number_format($row['harga'],0,',','.')?></h6>
+												<br/>
+												<?=$row['keterangan']?>
+											</p>
+											<input id="jumlah" type="text" value="0" name="jumlah[]">
+										</div>
+									</div>
+								</div>
+							<?php endwhile; ?>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="pills-minuman" role="tabpanel" aria-labelledby="pills-minuman-tab">
+						<div class="row">
+							<?php $Produks = $Produk->readAllMinuman(); while ($row = $Produks->fetch(PDO::FETCH_ASSOC)) : ?>
+								<div class="col-md-3 mb-20">
+									<div class="card-box d-block mx-auto pd-20 text-secondary">
+										<div class="img pb-30">
+										<img src="upload/<?=$row['foto']?>" alt="<?=$row['foto']?>" style="width:300px;">
+										</div>
+										<div class="content">
+											<h3 class="h4"><?=ucwords($row['nama'])?></h3>
+											<p class="max-width-200">
+												<h6>Rp. <?=number_format($row['harga'],0,',','.')?></h6>
+												<br/>
+												<?=$row['keterangan']?>
+											</p>
+											<input id="jumlah" type="text" value="0" name="jumlah[]">
+										</div>
+									</div>
+								</div>
+							<?php endwhile; ?>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="pills-snack" role="tabpanel" aria-labelledby="pills-snack-tab">
+						<div class="row">
+							<?php $Produks = $Produk->readAllSnack(); while ($row = $Produks->fetch(PDO::FETCH_ASSOC)) : ?>
+								<div class="col-md-3 mb-20">
+									<div class="card-box d-block mx-auto pd-20 text-secondary">
+										<div class="img pb-30">
+										<img src="upload/<?=$row['foto']?>" alt="<?=$row['foto']?>" style="width:300px;">
+										</div>
+										<div class="content">
+											<h3 class="h4"><?=ucwords($row['nama'])?></h3>
+											<p class="max-width-200">
+												<h6>Rp. <?=number_format($row['harga'],0,',','.')?></h6>
+												<br/>
+												<?=$row['keterangan']?>
+											</p>
+											<input id="jumlah" type="text" value="0" name="jumlah[]">
+										</div>
+									</div>
+								</div>
+							<?php endwhile; ?>
+						</div>
+					</div>
+				</div>
+			</form>
 			<?php endif; ?>
 
 			<!-- footer -->
@@ -125,137 +196,14 @@
 	<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
 	<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
 	<script src="vendors/scripts/dashboard.js"></script>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<!-- bootstrap-touchspin js -->
+	<script src="src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+	<script src="vendors/scripts/advanced-components.js"></script>
 	<script>
-	
-			const semua = () => {
-				$('#menuSemua').addClass('active');
-				$('#menuMakanan').removeClass('active');
-				$('#menuMinuman').removeClass('active');
-				$('#menuSnack').removeClass('active');
-				$('#semua').removeClass('d-none')
-				$('#makanan').addClass('d-none')
-				$('#minuman').addClass('d-none')
-				$('#makanan').empty();
-				$('#minuman').empty();
-				$('#snack').empty();
-			}
-
-			const makanan = () => {
-				$('#menuSemua').removeClass('active');
-				$('#menuMakanan').addClass('active');
-				$('#menuMinuman').removeClass('active');
-				$('#menuSnack').removeClass('active');
-				$('#semua').addClass('d-none')
-				$('#makanan').removeClass('d-none')
-				$('#minuman').addClass('d-none')
-				$.ajax({
-					url : "./pelanggan/get_produk_makanan.php",
-					dataType: "JSON",
-					success: function(res){
-						let html = '';
-						$('#makanan').empty();
-						$('#minuman').empty();
-						$('#snack').empty();
-						$.each(res, function(key, val){
-							html += `<div class="col-md-3 mb-20">
-										<a href="#" class="card-box d-block mx-auto pd-20 text-secondary">
-										<div class="img pb-30">
-											<img src="upload/${val.foto}" alt="foto_produk" style="width:300px;">
-										</div>
-										<div class="content">
-											<h3 class="h4">${val.nama}</h3>
-											<p class="max-width-200">
-												<h6>Rp. ${val.hargaRp}</h6>
-												<br/>
-												${val.keterangan}
-											</p>
-										</div>
-										</a>
-									</div>`
-						})
-						$('#makanan').append(html);
-					}
-				})
-			}
-
-			const minuman = () => {
-				$('#menuSemua').removeClass('active');
-				$('#menuMakanan').removeClass('active');
-				$('#menuMinuman').addClass('active');
-				$('#menuSnack').removeClass('active');
-				$('#semua').addClass('d-none')
-				$('#makanan').addClass('d-none')
-				$('#minuman').removeClass('d-none')
-				$.ajax({
-					url : "./pelanggan/get_produk_minuman.php",
-					dataType: "JSON",
-					success: function(res){
-						let html = '';
-						$('#makanan').empty();
-						$('#minuman').empty();
-						$('#snack').empty();
-						$.each(res, function(key, val){
-							html += `<div class="col-md-3 mb-20">
-										<a href="#" class="card-box d-block mx-auto pd-20 text-secondary">
-										<div class="img pb-30">
-											<img src="upload/${val.foto}" alt="foto_produk" style="width:300px;">
-										</div>
-										<div class="content">
-											<h3 class="h4">${val.nama}</h3>
-											<p class="max-width-200">
-												<h6>Rp. ${val.hargaRp}</h6>
-												<br/>
-												${val.keterangan}
-											</p>
-										</div>
-										</a>
-									</div>`
-						})
-						$('#minuman').append(html);
-					}
-				})
-			}
-	
-			const snack = () => {
-				$('#menuSemua').removeClass('active');
-				$('#menuMakanan').removeClass('active');
-				$('#menuMinuman').removeClass('active');
-				$('#menuSnack').addClass('active');
-				$('#semua').addClass('d-none')
-				$('#makanan').addClass('d-none')
-				$('#minuman').addClass('d-none')
-				$('#snack').removeClass('d-none')
-				$.ajax({
-					url : "./pelanggan/get_produk_snack.php",
-					dataType: "JSON",
-					success: function(res){
-						let html = '';
-						$('#makanan').empty();
-						$('#minuman').empty();
-						$('#snack').empty();
-						$.each(res, function(key, val){
-							html += `<div class="col-md-3 mb-20">
-										<a href="#" class="card-box d-block mx-auto pd-20 text-secondary">
-										<div class="img pb-30">
-											<img src="upload/${val.foto}" alt="foto_produk" style="width:300px;">
-										</div>
-										<div class="content">
-											<h3 class="h4">${val.nama}</h3>
-											<p class="max-width-200">
-												<h6>Rp. ${val.hargaRp}</h6>
-												<br/>
-												${val.keterangan}
-											</p>
-										</div>
-										</a>
-									</div>`
-						})
-						$('#snack').append(html);
-					}
-				})
-			}
-	
+		$("input[name='jumlah[]']").TouchSpin({
+			min: 0,
+			max: 100
+		});
 	</script>
 </body>
 </html>
