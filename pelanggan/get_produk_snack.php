@@ -4,7 +4,7 @@
 	$config = new Config(); 
 	$db = $config->getConnection();
 	$produk = new Produk($db);
-	$data_makanan = $produk->readAllMakanan();
+	$data_makanan = $produk->readAllSnack();
 	
 	$i = 0;
 	foreach($data_makanan as $mak){
