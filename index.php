@@ -71,16 +71,13 @@
 					<div class="col-12">
 						<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 							<li class="nav-item">
-								<a class="nav-link active" id="pills-semua-tab" data-toggle="pill" href="#pills-semua" role="tab" aria-controls="pills-semua" aria-selected="true">Semua</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" id="pills-makanan-tab" data-toggle="pill" href="#pills-makanan" role="tab" aria-controls="pills-makanan" aria-selected="false">Makanan</a>
+								<a class="nav-link active" id="pills-makanan-tab" data-toggle="pill" href="#pills-makanan" role="tab" aria-controls="pills-makanan" aria-selected="true">Makanan</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" id="pills-minuman-tab" data-toggle="pill" href="#pills-minuman" role="tab" aria-controls="pills-minuman" aria-selected="false">Minuman</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" id="pills-snack-tab" data-toggle="pill" href="#pills-snack" role="tab" aria-controls="pills-snack" aria-selected="false">Minuman</a>
+								<a class="nav-link" id="pills-snack-tab" data-toggle="pill" href="#pills-snack" role="tab" aria-controls="pills-snack" aria-selected="false">Snack</a>
 							</li>
 						</ul>
 					</div>
@@ -89,29 +86,7 @@
 			
 			<form method="POST" enctype="multipart/form-data">
 				<div class="tab-content" id="pills-tabContent">
-					<div class="tab-pane fade show active" id="pills-semua" role="tabpanel" aria-labelledby="pills-semua-tab">
-						<div class="row">
-							<?php $Produks = $Produk->readAll(); while ($row = $Produks->fetch(PDO::FETCH_ASSOC)) : ?>
-								<div class="col-md-3 mb-20">
-									<div class="card-box d-block mx-auto pd-20 text-secondary">
-										<div class="img pb-30">
-										<img src="upload/<?=$row['foto']?>" alt="<?=$row['foto']?>" style="width:300px;">
-										</div>
-										<div class="content">
-											<h3 class="h4"><?=ucwords($row['nama'])?></h3>
-											<p class="max-width-200">
-												<h6>Rp. <?=number_format($row['harga'],0,',','.')?></h6>
-												<br/>
-												<?=$row['keterangan']?>
-											</p>
-											<input id="jumlah" type="text" value="0" name="jumlah[]">
-										</div>
-									</div>
-								</div>
-							<?php endwhile; ?>
-						</div>
-					</div>
-					<div class="tab-pane fade" id="pills-makanan" role="tabpanel" aria-labelledby="pills-makanan-tab">
+					<div class="tab-pane fade show active" id="pills-makanan" role="tabpanel" aria-labelledby="pills-makanan-tab">
 						<div class="row">
 							<?php $Produks = $Produk->readAllMakanan(); while ($row = $Produks->fetch(PDO::FETCH_ASSOC)) : ?>
 								<div class="col-md-3 mb-20">
