@@ -2,7 +2,7 @@
 MySQL Backup
 Source Server Version: 5.1.31
 Source Database: hayun
-Date: 8/6/2022 16:27:53
+Date: 8/7/2022 14:13:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -75,6 +75,7 @@ CREATE TABLE `transaksi_detail` (
   `id_transaksi` int(11) DEFAULT NULL,
   `id_produk` int(11) DEFAULT NULL,
   `harga` int(11) DEFAULT NULL,
+  `jumlah` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_transaksi_detail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -96,5 +97,5 @@ CREATE TABLE `user` (
 -- ----------------------------
 INSERT INTO `diskon` VALUES ('1','Diskon Hari Kemerdekaan','2022-08-15','2022-08-20','12000','Minimal pembelian makanan dan minuman 50.000');
 INSERT INTO `pelanggan` VALUES ('1','3','Ricky Rodesta','ricky@mail.com','81236721821','laki','1995-12-22'), ('2','4','Nisa Wiguna','nisa@mail.com','81293212347','perempuan','1998-10-15');
-INSERT INTO `produk` VALUES ('1','Nasi Goreng','makanan','18000','nasigoreng.jpg','Nasi Goreng dengan Telur'), ('3','Ayam Kremes','makanan','15000','ayamkremes.jpg','Ayam Kremes tidak termasuk nasi'), ('4','Es Teh','minuman','5000','esteh.jpg','Es teh manis atau tawar'), ('5','Kentang Goreng','snack','10000','kentanggoreng.jpg','Kentang Goreng Renyah');
+INSERT INTO `produk` VALUES ('1','Nasi Goreng','makanan','18000','nasigoreng.jpg','Nasi Goreng dengan Telur'), ('3','Ayam Kremes','makanan','15000','ayamkremes.jpg','Ayam Kremes Renyah'), ('4','Es Teh','minuman','5000','esteh.jpg','Es teh manis atau tawar'), ('5','Kentang Goreng','snack','10000','kentanggoreng.jpg','Kentang Goreng Renyah');
 INSERT INTO `user` VALUES ('1','admin','admin','admin','Admin Sang Kopas'), ('2','kasir','kasir','kasir','Kasir Sang Kopas'), ('3','ricky','ricky','pelanggan',NULL), ('4','nisa','nisa','pelanggan',NULL);
