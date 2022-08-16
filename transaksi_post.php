@@ -22,14 +22,21 @@
         $Produk->id_produk = $id_produk;
         $Produk->readOne();
         $cek_transaksi = $Transaksi->readOne();
-        // print('<pre>');print_r($cek_transaksi);exit();
+    
         if($cek_transaksi != 1){
-            $TransaksiDetail->id_transaksi =  $cek_transaksi['id_transaksi'];
             $TransaksiDetail->id_produk =  $id_produk;
-            $TransaksiDetail->harga =  $Produk->harga;
-            $TransaksiDetail->jumlah =  $jumlah_barang;
-            $TransaksiDetail->insert();
-            header("Location: index.php");
+            $cek_detail_transaksi = $TransaksiDetail->readOneByProduk();
+            if($cek_detail_transaksi != ""){
+                echo "here";
+            }else{
+                echo "here2";
+            }
+            print('<pre>');print_r($cek_detail_transaksi);exit();
+            // $TransaksiDetail->id_transaksi =  $cek_transaksi['id_transaksi'];
+            // $TransaksiDetail->harga =  $Produk->harga;
+            // $TransaksiDetail->jumlah =  $jumlah_barang;
+            // $TransaksiDetail->insert();
+            // header("Location: index.php");
         }else{
             $Transaksi->insert();
             $last_id = $Transaksi->getNewID();
@@ -41,7 +48,7 @@
             $Transaksi->id_transaksi_update = $last_id;
             $Transaksi->total_harga = $Produk->harga;
             $Transaksi->updateHarga();
-            // header("Location: index.php");
+            header("Location: index.php");
         }
     }else{
         // return false;

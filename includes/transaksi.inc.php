@@ -117,16 +117,15 @@ class Transaksi {
 	}
 
 	function updateHarga() {
-		$query = "UPDATE {$this->table_transaksi}
+		$query = "UPDATE transaksi
 			SET
-                total_harga = :total_harga,
+                total_harga = :total_harga
 			WHERE
 				id_transaksi = :id_transaksi";
         $stmt = $this->conn->prepare($query);
-
 		$stmt->bindParam(':id_transaksi', $this->id_transaksi_update);
 		$stmt->bindParam(':total_harga', $this->total_harga);
-
+	
 		if ($stmt->execute()) {
 			return true;
 		} else {

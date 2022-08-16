@@ -61,21 +61,18 @@ class TransaksiDetail {
 		return $stmt;
 	}
 
-	function readOne() {
-		$query = "SELECT * FROM {$this->table_transaksi} WHERE id_user=:id_user LIMIT 0,1";
+	function readOneByProduk() {
+		$query = "SELECT * FROM {$this->table_transaksi_detail} WHERE id_produk=:id_produk LIMIT 0,1";
 		$stmt = $this->conn->prepare($query);
-		$stmt->bindParam(':id_user', $this->id_user);
+		$stmt->bindParam(':id_produk', $this->id_produk);
 		$stmt->execute();
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		$data['id_transaksi'] = $row['id_transaksi'];
-        $data['id_user'] = $row['id_user'];
-		$data['tgl_transaksi'] = $row['tgl_transaksi'];
-		$data['metode_pembayaran'] = $row['metode_pembayaran'];
-        $data['total_harga'] = $row['total_harga'];
-        $data['status'] = $row['status'];
-        $data['id_diskon'] = $row['id_diskon'];
-        $data['no_meja'] = $row['no_meja'];
+		$data['id_transaksi_detail'] = $row['id_transaksi_detail'];
+        $data['id_transaksi'] = $row['id_transaksi'];
+		$data['id_produk'] = $row['id_produk'];
+		$data['harga'] = $row['harga'];
+        $data['jumlah'] = $row['jumlah'];
 
         return $data;
 	}
