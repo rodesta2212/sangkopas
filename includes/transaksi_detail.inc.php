@@ -3,6 +3,7 @@
 class TransaksiDetail {
     private $conn;
     private $table_transaksi_detail = 'transaksi_detail';
+	private $table_produk = 'produk';
 
     public $id_transaksi_detail;
     public $id_transaksi;
@@ -54,8 +55,10 @@ class TransaksiDetail {
 	}
 
     function readAll() {
-		$query = "SELECT * FROM {$this->table_produk} ORDER BY id_produk ASC";
+		
+		$query = "SELECT {$this->table_produk}.nama, {$this->table_produk}.kategori, {$this->table_produk}.harga, {$this->table_transaksi_detail}.jumlah FROM {$this->table_transaksi_detail} LEFT JOIN {$this->table_produk} ON {$this->table_transaksi_detail}.id_produk = {$this->table_produk}.id_produk WHERE id_transaksi = :id_transaksi";
 		$stmt = $this->conn->prepare( $query );
+		$stmt->bindParam(':id_transaksi', $this->id_transaksi);
 		$stmt->execute();
 
 		return $stmt;

@@ -58,7 +58,16 @@ class Transaksi {
 	}
 
     function readAll() {
-		$query = "SELECT * FROM {$this->table_produk} ORDER BY id_produk ASC";
+		$query = "SELECT * FROM {$this->table_transaksi} WHERE id_user=:id_user ORDER BY tgl_transaksi DESC";
+		$stmt = $this->conn->prepare( $query );
+		$stmt->bindParam(':id_user', $this->id_user);
+		$stmt->execute();
+
+		return $stmt;
+	}
+
+	function readAllTransaksi() {
+		$query = "SELECT * FROM {$this->table_transaksi}  ORDER BY tgl_transaksi DESC";
 		$stmt = $this->conn->prepare( $query );
 		$stmt->execute();
 
