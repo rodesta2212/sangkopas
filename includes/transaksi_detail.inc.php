@@ -68,35 +68,30 @@ class TransaksiDetail {
 		$stmt->execute();
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		$data['id_transaksi_detail'] = $row['id_transaksi_detail'];
-        $data['id_transaksi'] = $row['id_transaksi'];
-		$data['id_produk'] = $row['id_produk'];
-		$data['harga'] = $row['harga'];
-        $data['jumlah'] = $row['jumlah'];
+		if($row != ""){
+			$data['status'] = 1;
+			$data['id_transaksi_detail'] = $row['id_transaksi_detail'];
+			$data['id_transaksi'] = $row['id_transaksi'];
+			$data['id_produk'] = $row['id_produk'];
+			$data['harga'] = $row['harga'];
+			$data['jumlah'] = $row['jumlah'];
+		}else{
+			$data['status'] = 0;
+		}
 
         return $data;
 	}
 
-	function update() {
-		$query = "UPDATE {$this->table_produk}
+	function updateJumlah() {
+		$query = "UPDATE {$this->table_transaksi_detail}
 			SET
-                id_produk = :id_produk,
-				nama = :nama,
-				kategori = :kategori,
-                harga = :harga,
-                foto = :foto,
-                keterangan = :keterangan
+                jumlah = :jumlah
 			WHERE
-				id_produk = :id_produk";
+			id_transaksi_detail = :id_transaksi_detail";
         $stmt = $this->conn->prepare($query);
-
-		$stmt->bindParam(':id_produk', $this->id_produk);
-		$stmt->bindParam(':nama', $this->nama);
-		$stmt->bindParam(':kategori', $this->kategori);
-        $stmt->bindParam(':harga', $this->harga);
-        $stmt->bindParam(':foto', $this->foto);
-        $stmt->bindParam(':keterangan', $this->keterangan);
-        $stmt->bindParam(':id_produk', $this->id_produk);
+		
+		$stmt->bindParam(':id_transaksi_detail', $this->id_transaksi_detail);
+		$stmt->bindParam(':jumlah', $this->jumlah);
 
 		if ($stmt->execute()) {
 			return true;

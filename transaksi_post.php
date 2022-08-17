@@ -26,17 +26,26 @@
         if($cek_transaksi != 1){
             $TransaksiDetail->id_produk =  $id_produk;
             $cek_detail_transaksi = $TransaksiDetail->readOneByProduk();
-            if($cek_detail_transaksi != ""){
-                echo "here";
+            // print('<pre>');print_r($cek_detail_transaksi);exit();
+            if($cek_detail_transaksi['status'] != 0){
+                $TransaksiDetail->id_transaksi_detail =  $cek_detail_transaksi['id_transaksi_detail'];
+                $TransaksiDetail->jumlah =  $jumlah_barang + $cek_detail_transaksi['jumlah'];
+                $TransaksiDetail->updateJumlah();
+                $Transaksi->id_transaksi_update = $cek_transaksi['id_transaksi'];
+                $Transaksi->total_harga = $cek_transaksi['total_harga'] +  ($jumlah_barang * $Produk->harga);
+                $Transaksi->updateHarga();
+                header("Location: index.php");
             }else{
-                echo "here2";
+                $TransaksiDetail->id_transaksi =  $cek_transaksi['id_transaksi'];
+                $TransaksiDetail->id_produk =  $id_produk;
+                $TransaksiDetail->harga =  $Produk->harga;
+                $TransaksiDetail->jumlah =  $jumlah_barang;
+                $TransaksiDetail->insert();
+                $Transaksi->id_transaksi_update = $cek_transaksi['id_transaksi'];
+                $Transaksi->total_harga = $cek_transaksi['total_harga'] +  ($jumlah_barang * $Produk->harga);
+                $Transaksi->updateHarga();
+                header("Location: index.php");
             }
-            print('<pre>');print_r($cek_detail_transaksi);exit();
-            // $TransaksiDetail->id_transaksi =  $cek_transaksi['id_transaksi'];
-            // $TransaksiDetail->harga =  $Produk->harga;
-            // $TransaksiDetail->jumlah =  $jumlah_barang;
-            // $TransaksiDetail->insert();
-            // header("Location: index.php");
         }else{
             $Transaksi->insert();
             $last_id = $Transaksi->getNewID();
