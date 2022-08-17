@@ -53,38 +53,30 @@
 			<?php endif; ?>
 
 			<?php if ($_SESSION['role'] == 'pelanggan'): ?>
-			<div class="page-header">
-				<div class="row">
-					<div class="col-12">
-						<div class="title">
-							<h4>Daftar Produk</h4>
+				<div class="page-header">
+					<div class="row">
+						<div class="col-12">
+							<div class="title">
+								<h4>Daftar Produk</h4>
+							</div>
 						</div>
-						<!-- <nav aria-label="breadcrumb" role="navigation">
-							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-								<li class="breadcrumb-item active" aria-current="page">
-									Dashboard
+						<div class="col-12">
+							<ul class="nav nav-pills" id="pills-tab" role="tablist">
+								<li class="nav-item">
+									<a class="nav-link active" id="pills-makanan-tab" data-toggle="pill" href="#pills-makanan" role="tab" aria-controls="pills-makanan" aria-selected="true">Makanan</a>
 								</li>
-							</ol>
-						</nav> -->
-					</div>
-					<div class="col-12">
-						<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-							<li class="nav-item">
-								<a class="nav-link active" id="pills-makanan-tab" data-toggle="pill" href="#pills-makanan" role="tab" aria-controls="pills-makanan" aria-selected="true">Makanan</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" id="pills-minuman-tab" data-toggle="pill" href="#pills-minuman" role="tab" aria-controls="pills-minuman" aria-selected="false">Minuman</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" id="pills-snack-tab" data-toggle="pill" href="#pills-snack" role="tab" aria-controls="pills-snack" aria-selected="false">Snack</a>
-							</li>
-						</ul>
+								<li class="nav-item">
+									<a class="nav-link" id="pills-minuman-tab" data-toggle="pill" href="#pills-minuman" role="tab" aria-controls="pills-minuman" aria-selected="false">Minuman</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="pills-snack-tab" data-toggle="pill" href="#pills-snack" role="tab" aria-controls="pills-snack" aria-selected="false">Snack</a>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
-			</div>
 			
-			<form method="POST" enctype="multipart/form-data">
+				
 				<div class="tab-content" id="pills-tabContent">
 					<div class="tab-pane fade show active" id="pills-makanan" role="tabpanel" aria-labelledby="pills-makanan-tab">
 						<div class="row">
@@ -101,7 +93,11 @@
 												<br/>
 												<?=$row['keterangan']?>
 											</p>
-											<input id="jumlah" type="text" value="0" name="jumlah[]">
+											<form action="transaksi_post.php" method="POST">
+												<input id="jumlah" type="text" value="0" name="jumlah">
+												<input type="hidden" value="<?= $row['id_produk'] ?>" name="id_produk">
+												<button type="submit" class="btn btn-sm btn-success btn-block">Tambah</button>
+											</form>
 										</div>
 									</div>
 								</div>
@@ -123,7 +119,11 @@
 												<br/>
 												<?=$row['keterangan']?>
 											</p>
-											<input id="jumlah" type="text" value="0" name="jumlah[]">
+											<form action="transaksi_post.php" method="POST">
+												<input id="jumlah" type="text" value="0" name="jumlah">
+												<input type="hidden" value="<?= $row['id_produk'] ?>" name="id_produk">
+												<button type="submit" class="btn btn-sm btn-success btn-block">Tambah</button>
+											</form>
 										</div>
 									</div>
 								</div>
@@ -145,7 +145,11 @@
 												<br/>
 												<?=$row['keterangan']?>
 											</p>
-											<input id="jumlah" type="text" value="0" name="jumlah[]">
+											<form action="transaksi_post.php" method="POST">
+												<input id="jumlah" type="text" value="0" name="jumlah">
+												<input type="hidden" value="<?= $row['id_produk'] ?>" name="id_produk">
+												<button type="submit" class="btn btn-sm btn-success btn-block">Tambah</button>
+											</form>
 										</div>
 									</div>
 								</div>
@@ -153,7 +157,6 @@
 						</div>
 					</div>
 				</div>
-			</form>
 			<?php endif; ?>
 
 			<!-- footer -->
@@ -175,7 +178,7 @@
 	<script src="src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
 	<script src="vendors/scripts/advanced-components.js"></script>
 	<script>
-		$("input[name='jumlah[]']").TouchSpin({
+		$("input[name='jumlah']").TouchSpin({
 			min: 0,
 			max: 100
 		});

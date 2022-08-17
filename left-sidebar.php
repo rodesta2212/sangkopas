@@ -45,10 +45,15 @@
 								<span class="micon dw dw-money-2"></span><span class="mtext">Diskon</span>
 							</a>
 						</li>
+						<li>
+							<a href="transaksi_list_all.php" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-invoice-1"></span><span class="mtext">Transaksi</span>
+							</a>
+						</li>
 					<?php else: ?>
 						<!-- Pelanggan -->
 						<li>
-							<a href="transaksi.php?id=<?php echo $_SESSION['id_pelanggan']; ?>" class="dropdown-toggle no-arrow">
+							<a href="transaksi_list.php?id=<?php echo $_SESSION['id_pelanggan']; ?>" class="dropdown-toggle no-arrow">
 								<span class="micon dw dw-invoice-1"></span><span class="mtext">Transaksi</span>
 							</a>
 						</li>
