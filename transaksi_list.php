@@ -93,6 +93,18 @@
                                             <td colspan="4" align="right">Sub Total Item</td>
                                             <td><?= number_format($subtotal,0,'.','.'); ?></td>
                                         </tr>
+                                        <tr>
+                                            <td colspan="4" align="right">Diskon</td>
+                                            <td><?= number_format($row['potongan'],0,'.','.'); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" align="right">Total</td>
+                                            <?php if($row['id_diskon'] != 0):?>
+                                                <td><?= number_format($subtotal-$row['potongan'],0,'.','.'); ?></td>
+                                            <?php else:?>
+                                                    <td><?= number_format($subtotal,0,'.','.'); ?></td>
+                                            <?php endif;?>
+                                        </tr>
                                     </tfoot>
                                 </table>
                             </div>
