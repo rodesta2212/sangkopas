@@ -3,6 +3,7 @@
 class Transaksi {
     private $conn;
     private $table_transaksi = 'transaksi';
+    private $table_diskon = 'diskon';
 
     public $id_transaksi;
     public $id_user;
@@ -58,7 +59,7 @@ class Transaksi {
 	}
 
     function readAll() {
-		$query = "SELECT * FROM {$this->table_transaksi} WHERE id_user=:id_user ORDER BY tgl_transaksi DESC";
+		$query = "SELECT * FROM {$this->table_transaksi} LEFT JOIN {$this->table_diskon} ON {$this->table_transaksi}.id_diskon = {$this->table_diskon}.id_diskon WHERE id_user=:id_user ORDER BY tgl_transaksi DESC";
 		$stmt = $this->conn->prepare( $query );
 		$stmt->bindParam(':id_user', $this->id_user);
 		$stmt->execute();
@@ -67,7 +68,7 @@ class Transaksi {
 	}
 
 	function readAllTransaksi() {
-		$query = "SELECT * FROM {$this->table_transaksi}  ORDER BY tgl_transaksi DESC";
+		$query = "SELECT * FROM {$this->table_transaksi} LEFT JOIN {$this->table_diskon} ON {$this->table_transaksi}.id_diskon = {$this->table_diskon}.id_diskon ORDER BY tgl_transaksi DESC";
 		$stmt = $this->conn->prepare( $query );
 		$stmt->execute();
 
@@ -75,7 +76,7 @@ class Transaksi {
 	}
 
 	function readOne() {
-		$query = "SELECT * FROM {$this->table_transaksi} WHERE id_user=:id_user LIMIT 0,1";
+		$query = "SELECT * FROM {$this->table_transaksi} WHERE id_user=:id_user AND status = 'belum lunas' LIMIT 0,1";
 		$stmt = $this->conn->prepare($query);
 		$stmt->bindParam(':id_user', $this->id_user);
 		$stmt->execute();
@@ -138,6 +139,32 @@ class Transaksi {
 		if ($stmt->execute()) {
 			return true;
 		} else {
+			return false;
+		}
+	}
+
+	function updateVerifikasiTransaksi() {
+		$query = "UPDATE {$this->table_transaksi}
+			SET
+				metode_pembayaran = :metode_pembayaran,
+				id_diskon = :id_diskon,
+				no_meja = :no_meja,
+				status = :status
+			WHERE
+				id_transaksi = :id_transaksi";
+        $stmt = $this->conn->prepare($query);
+		
+		$stmt->bindParam(':id_transaksi', $this->id_transaksi);
+		$stmt->bindParam(':metode_pembayaran', $this->metode_pembayaran);
+		$stmt->bindParam(':id_diskon', $this->diskon);
+		$stmt->bindParam(':no_meja', $this->no_meja);
+		$stmt->bindParam(':status', $this->status);
+		// print('<pre>');print_r($stmt);exit();
+		if ($stmt->execute()) {
+			// echo "here";exit();
+			return true;
+		} else {
+			// echo "here2";exit();
 			return false;
 		}
 	}
