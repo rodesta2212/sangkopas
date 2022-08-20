@@ -107,6 +107,12 @@
                                         </tr>
                                     </tfoot>
                                 </table>
+                                <?php if($row['status'] == "belum bayar"):?>
+                                    <form action="transaksi_batal.php" method="POST">
+                                        <input type="hidden" name="id_transaksi" value="<?= $row['id_transaksi']?>">
+                                        <button type="submit" class="btn btn-block btn-danger text-capitalize">batal transaksi</button>
+                                    </form>
+                                <?php endif;?>
                             </div>
                         </div>
                     <?php endwhile; ?>

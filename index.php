@@ -53,110 +53,105 @@
 			<?php endif; ?>
 
 			<?php if ($_SESSION['role'] == 'pelanggan'): ?>
-				<div class="page-header">
-					<div class="row">
-						<div class="col-12">
-							<div class="title">
-								<h4>Daftar Produk</h4>
+				<form action="transaksi_post.php" method="POST">
+					<div class="page-header">
+						<div class="row">
+							<div class="col-12">
+								<div class="title">
+									<h4>Daftar Produk</h4>
+								</div>
+							</div>
+							<div class="col-12">
+								<ul class="nav nav-pills" id="pills-tab" role="tablist">
+									<li class="nav-item">
+										<a class="nav-link active" id="pills-makanan-tab" data-toggle="pill" href="#pills-makanan" role="tab" aria-controls="pills-makanan" aria-selected="true">Makanan</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" id="pills-minuman-tab" data-toggle="pill" href="#pills-minuman" role="tab" aria-controls="pills-minuman" aria-selected="false">Minuman</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" id="pills-snack-tab" data-toggle="pill" href="#pills-snack" role="tab" aria-controls="pills-snack" aria-selected="false">Snack</a>
+									</li>
+									<li class="nav-item ml-auto">
+										<button type="submit" class="btn btn-success btn-sm">Tambah</button>
+									</li>
+								</ul>
 							</div>
 						</div>
-						<div class="col-12">
-							<ul class="nav nav-pills" id="pills-tab" role="tablist">
-								<li class="nav-item">
-									<a class="nav-link active" id="pills-makanan-tab" data-toggle="pill" href="#pills-makanan" role="tab" aria-controls="pills-makanan" aria-selected="true">Makanan</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" id="pills-minuman-tab" data-toggle="pill" href="#pills-minuman" role="tab" aria-controls="pills-minuman" aria-selected="false">Minuman</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" id="pills-snack-tab" data-toggle="pill" href="#pills-snack" role="tab" aria-controls="pills-snack" aria-selected="false">Snack</a>
-								</li>
-							</ul>
-						</div>
 					</div>
-				</div>
-			
-				
-				<div class="tab-content" id="pills-tabContent">
-					<div class="tab-pane fade show active" id="pills-makanan" role="tabpanel" aria-labelledby="pills-makanan-tab">
-						<div class="row">
-							<?php $Produks = $Produk->readAllMakanan(); while ($row = $Produks->fetch(PDO::FETCH_ASSOC)) : ?>
-								<div class="col-md-3 mb-20">
-									<div class="card-box d-block mx-auto pd-20 text-secondary">
-										<div class="img pb-30">
-										<img src="upload/<?=$row['foto']?>" alt="<?=$row['foto']?>" style="width:300px;">
-										</div>
-										<div class="content">
-											<h3 class="h4"><?=ucwords($row['nama'])?></h3>
-											<p class="max-width-200">
-												<h6>Rp. <?=number_format($row['harga'],0,',','.')?></h6>
-												<br/>
-												<?=$row['keterangan']?>
-											</p>
-											<form action="transaksi_post.php" method="POST">
-												<input id="jumlah" type="text" value="0" name="jumlah">
-												<input type="hidden" value="<?= $row['id_produk'] ?>" name="id_produk">
-												<button type="submit" class="btn btn-sm btn-success btn-block">Tambah</button>
-											</form>
+							
+					<div class="tab-content" id="pills-tabContent">
+						<div class="tab-pane fade show active" id="pills-makanan" role="tabpanel" aria-labelledby="pills-makanan-tab">
+							<div class="row">
+								<?php $i=0; $Produks = $Produk->readAllMakanan(); while ($row = $Produks->fetch(PDO::FETCH_ASSOC)) : ?>
+									<div class="col-md-3 mb-20">
+										<div class="card-box d-block mx-auto pd-20 text-secondary">
+											<div class="img pb-30">
+											<img src="upload/<?=$row['foto']?>" alt="<?=$row['foto']?>" style="width:300px;">
+											</div>
+											<div class="content">
+												<h3 class="h4"><?=ucwords($row['nama'])?></h3>
+												<p class="max-width-200">
+													<h6>Rp. <?=number_format($row['harga'],0,',','.')?></h6>
+													<br/>
+													<?=$row['keterangan']?>
+												</p>
+												<input class="qty" type="number" value="0" name="produk[<?= $i ?>][qty]">
+												<input type="hidden" value="<?= $row['id_produk'] ?>" name="produk[<?= $i ?>][id_produk]">
+											</div>
 										</div>
 									</div>
-								</div>
-							<?php endwhile; ?>
+								<?php $i++; endwhile; ?>
+							</div>
 						</div>
-					</div>
-					<div class="tab-pane fade" id="pills-minuman" role="tabpanel" aria-labelledby="pills-minuman-tab">
-						<div class="row">
-							<?php $Produks = $Produk->readAllMinuman(); while ($row = $Produks->fetch(PDO::FETCH_ASSOC)) : ?>
-								<div class="col-md-3 mb-20">
-									<div class="card-box d-block mx-auto pd-20 text-secondary">
-										<div class="img pb-30">
-										<img src="upload/<?=$row['foto']?>" alt="<?=$row['foto']?>" style="width:300px;">
-										</div>
-										<div class="content">
-											<h3 class="h4"><?=ucwords($row['nama'])?></h3>
-											<p class="max-width-200">
-												<h6>Rp. <?=number_format($row['harga'],0,',','.')?></h6>
-												<br/>
-												<?=$row['keterangan']?>
-											</p>
-											<form action="transaksi_post.php" method="POST">
-												<input id="jumlah" type="text" value="0" name="jumlah">
-												<input type="hidden" value="<?= $row['id_produk'] ?>" name="id_produk">
-												<button type="submit" class="btn btn-sm btn-success btn-block">Tambah</button>
-											</form>
+						<div class="tab-pane fade" id="pills-minuman" role="tabpanel" aria-labelledby="pills-minuman-tab">
+							<div class="row">
+								<?php $Produks = $Produk->readAllMinuman(); while ($row = $Produks->fetch(PDO::FETCH_ASSOC)) : ?>
+									<div class="col-md-3 mb-20">
+										<div class="card-box d-block mx-auto pd-20 text-secondary">
+											<div class="img pb-30">
+											<img src="upload/<?=$row['foto']?>" alt="<?=$row['foto']?>" style="width:300px;">
+											</div>
+											<div class="content">
+												<h3 class="h4"><?=ucwords($row['nama'])?></h3>
+												<p class="max-width-200">
+													<h6>Rp. <?=number_format($row['harga'],0,',','.')?></h6>
+													<br/>
+													<?=$row['keterangan']?>
+												</p>
+												<input class="qty" type="number" value="0" name="produk[<?= $i ?>][qty]">
+												<input type="hidden" value="<?= $row['id_produk'] ?>" name="produk[<?= $i ?>][id_produk]">
+											</div>
 										</div>
 									</div>
-								</div>
-							<?php endwhile; ?>
+								<?php $i++; endwhile; ?>
+							</div>
 						</div>
-					</div>
-					<div class="tab-pane fade" id="pills-snack" role="tabpanel" aria-labelledby="pills-snack-tab">
-						<div class="row">
-							<?php $Produks = $Produk->readAllSnack(); while ($row = $Produks->fetch(PDO::FETCH_ASSOC)) : ?>
-								<div class="col-md-3 mb-20">
-									<div class="card-box d-block mx-auto pd-20 text-secondary">
-										<div class="img pb-30">
-										<img src="upload/<?=$row['foto']?>" alt="<?=$row['foto']?>" style="width:300px;">
-										</div>
-										<div class="content">
-											<h3 class="h4"><?=ucwords($row['nama'])?></h3>
-											<p class="max-width-200">
-												<h6>Rp. <?=number_format($row['harga'],0,',','.')?></h6>
-												<br/>
-												<?=$row['keterangan']?>
-											</p>
-											<form action="transaksi_post.php" method="POST">
-												<input id="jumlah" type="text" value="0" name="jumlah">
-												<input type="hidden" value="<?= $row['id_produk'] ?>" name="id_produk">
-												<button type="submit" class="btn btn-sm btn-success btn-block">Tambah</button>
-											</form>
+						<div class="tab-pane fade" id="pills-snack" role="tabpanel" aria-labelledby="pills-snack-tab">
+							<div class="row">
+								<?php $Produks = $Produk->readAllSnack(); while ($row = $Produks->fetch(PDO::FETCH_ASSOC)) : ?>
+									<div class="col-md-3 mb-20">
+										<div class="card-box d-block mx-auto pd-20 text-secondary">
+											<div class="img pb-30">
+											<img src="upload/<?=$row['foto']?>" alt="<?=$row['foto']?>" style="width:300px;">
+											</div>
+											<div class="content">
+												<h3 class="h4"><?=ucwords($row['nama'])?></h3>
+												<p class="max-width-200">
+													<h6>Rp. <?=number_format($row['harga'],0,',','.')?></h6>
+													<br/>
+													<?=$row['keterangan']?>
+												</p>
+												<input class="qty" type="number" value="0" name="produk[<?= $i ?>][qty]">
+												<input type="hidden" value="<?= $row['id_produk'] ?>" name="produk[<?= $i ?>][id_produk]">
+											</div>
 										</div>
 									</div>
-								</div>
-							<?php endwhile; ?>
+								<?php $i++; endwhile; ?>
+							</div>
 						</div>
 					</div>
-				</div>
+				</form>
 			<?php endif; ?>
 
 			<!-- footer -->
@@ -168,19 +163,19 @@
 	<script src="vendors/scripts/script.min.js"></script>
 	<script src="vendors/scripts/process.js"></script>
 	<script src="vendors/scripts/layout-settings.js"></script>
-	<script src="src/plugins/apexcharts/apexcharts.min.js"></script>
+	<!-- <script src="src/plugins/apexcharts/apexcharts.min.js"></script> -->
 	<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
 	<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
 	<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
 	<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-	<script src="vendors/scripts/dashboard.js"></script>
+	<!-- <script src="vendors/scripts/dashboard.js"></script> -->
 	<!-- bootstrap-touchspin js -->
 	<script src="src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
 	<script src="vendors/scripts/advanced-components.js"></script>
 	<script>
-		$("input[name='jumlah']").TouchSpin({
+		$(".qty").TouchSpin({
 			min: 0,
-			max: 100
+			max: 10
 		});
 	</script>
 </body>

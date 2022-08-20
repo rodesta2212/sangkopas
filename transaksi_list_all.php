@@ -151,7 +151,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="no_meja">Nomor Meja</label>
-                                            <input type="number" class="form-control" id="no_meja" name="no_meja">
+                                            <select name="no_meja" id="no_meja" class="form-control">
+                                                <?php for($i = 1; $i <= 12; $i++):?>
+                                                    <option value="<?= $i ?>"><?= $i ?></option>
+                                                <?php endfor;?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
