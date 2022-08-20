@@ -21,14 +21,14 @@ class Transaksi {
 
     function insert() {
         $query = "INSERT INTO {$this->table_transaksi} 
-		(id_user, tgl_transaksi, total_harga, status) 
-		VALUES(:id_user, :tgl_transaksi, :total_harga, :status)";
+		(id_transaksi, id_user, tgl_transaksi,  status) 
+		VALUES(:id_transaksi, :id_user, :tgl_transaksi, :status)";
 
         $stmt = $this->conn->prepare($query);
         // produk
+        $stmt->bindParam(':id_transaksi', $this->id_transaksi);
         $stmt->bindParam(':id_user', $this->id_user);
 		$stmt->bindParam(':tgl_transaksi', $this->tgl_transaksi);
-        $stmt->bindParam(':total_harga', $this->total_harga);
         $stmt->bindParam(':status', $this->status);
 
 		if ($stmt->execute()) {
@@ -39,8 +39,8 @@ class Transaksi {
 		}
 	}
 
-	function getNewID() {
-		$query = "SELECT MAX(id_transaksi) AS code FROM {$this->table_transaksi} ";
+	function getNewId() {
+		$query = "SELECT MAX(id_transaksi) AS code FROM {$this->table_transaksi}";
 		$stmt = $this->conn->prepare($query);
 		$stmt->execute();
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -53,7 +53,7 @@ class Transaksi {
 	}
 
 	function genCode($latest, $key, $chars = 0) {
-        $new = intval(substr($latest, strlen($key)));
+        $new = intval(substr($latest, strlen($key))) + 1;
         $numb = str_pad($new, $chars, "0", STR_PAD_LEFT);
         return $key . $numb;
 	}
@@ -76,7 +76,7 @@ class Transaksi {
 	}
 
 	function readOne() {
-		$query = "SELECT * FROM {$this->table_transaksi} WHERE id_user=:id_user AND status = 'belum lunas' LIMIT 0,1";
+		$query = "SELECT * FROM {$this->table_transaksi} WHERE id_user = :id_user AND status = 'belum bayar' LIMIT 0,1";
 		$stmt = $this->conn->prepare($query);
 		$stmt->bindParam(':id_user', $this->id_user);
 		$stmt->execute();
@@ -133,7 +133,7 @@ class Transaksi {
 			WHERE
 				id_transaksi = :id_transaksi";
         $stmt = $this->conn->prepare($query);
-		$stmt->bindParam(':id_transaksi', $this->id_transaksi_update);
+		$stmt->bindParam(':id_transaksi', $this->id_transaksi);
 		$stmt->bindParam(':total_harga', $this->total_harga);
 	
 		if ($stmt->execute()) {
@@ -170,9 +170,9 @@ class Transaksi {
 	}
 
     function delete() {
-		$query = "DELETE FROM {$this->table_produk} WHERE id_produk = ?";
+		$query = "DELETE FROM {$this->table_transaksi} WHERE id_transaksi = ?";
 		$stmt = $this->conn->prepare($query);
-		$stmt->bindParam(1, $this->id_produk);
+		$stmt->bindParam(1, $this->id_transaksi);
 		if ($result = $stmt->execute()) {
 			return true;
 		} else {

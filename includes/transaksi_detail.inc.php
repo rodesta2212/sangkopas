@@ -4,7 +4,7 @@ class TransaksiDetail {
     private $conn;
     private $table_transaksi_detail = 'transaksi_detail';
 	private $table_produk = 'produk';
-
+	
     public $id_transaksi_detail;
     public $id_transaksi;
     public $id_produk;
@@ -17,11 +17,12 @@ class TransaksiDetail {
 
     function insert() {
         $query = "INSERT INTO {$this->table_transaksi_detail} 
-		(id_transaksi, id_produk, harga, jumlah) 
-		VALUES(:id_transaksi, :id_produk, :harga, :jumlah)";
+		(id_transaksi_detail, id_transaksi, id_produk, harga, jumlah) 
+		VALUES(:id_transaksi_detail, :id_transaksi, :id_produk, :harga, :jumlah)";
 
         $stmt = $this->conn->prepare($query);
         // produk
+        $stmt->bindParam(':id_transaksi_detail', $this->id_transaksi_detail);
         $stmt->bindParam(':id_transaksi', $this->id_transaksi);
 		$stmt->bindParam(':id_produk', $this->id_produk);
         $stmt->bindParam(':harga', $this->harga);
@@ -35,8 +36,8 @@ class TransaksiDetail {
 		}
 	}
 
-	function getNewID() {
-		$query = "SELECT MAX(id_transaksi) AS code FROM {$this->table_transaksi} ";
+	function getNewId() {
+		$query = "SELECT MAX(id_transaksi_detail) AS code FROM transaksi_detail ";
 		$stmt = $this->conn->prepare($query);
 		$stmt->execute();
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -104,9 +105,9 @@ class TransaksiDetail {
 	}
 
     function delete() {
-		$query = "DELETE FROM {$this->table_produk} WHERE id_produk = ?";
+		$query = "DELETE FROM {$this->table_transaksi_detail} WHERE id_transaksi = ?";
 		$stmt = $this->conn->prepare($query);
-		$stmt->bindParam(1, $this->id_produk);
+		$stmt->bindParam(1, $this->id_transaksi);
 		if ($result = $stmt->execute()) {
 			return true;
 		} else {
