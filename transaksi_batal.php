@@ -14,4 +14,4 @@
     $Transaksi->delete();
     $TransaksiDetail->id_transaksi = $_POST['id_transaksi'];
     $TransaksiDetail->delete();
-    header("Location: index.php");
+    header("Location: transaksi_list.php?id=".$id_user."");

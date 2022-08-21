@@ -73,7 +73,7 @@
 										<a class="nav-link" id="pills-snack-tab" data-toggle="pill" href="#pills-snack" role="tab" aria-controls="pills-snack" aria-selected="false">Snack</a>
 									</li>
 									<li class="nav-item ml-auto">
-										<button type="submit" class="btn btn-success btn-sm">Tambah</button>
+										<button type="submit" class="btn btn-success btn-sm">Pesan</button>
 									</li>
 								</ul>
 							</div>
@@ -96,7 +96,7 @@
 													<br/>
 													<?=$row['keterangan']?>
 												</p>
-												<input class="qty" type="number" value="0" name="produk[<?= $i ?>][qty]">
+												<input class="qty text-center" type="number" value="0" name="produk[<?= $i ?>][qty]">
 												<input type="hidden" value="<?= $row['id_produk'] ?>" name="produk[<?= $i ?>][id_produk]">
 											</div>
 										</div>
@@ -119,7 +119,7 @@
 													<br/>
 													<?=$row['keterangan']?>
 												</p>
-												<input class="qty" type="number" value="0" name="produk[<?= $i ?>][qty]">
+												<input class="qty text-center" type="number" value="0" name="produk[<?= $i ?>][qty]">
 												<input type="hidden" value="<?= $row['id_produk'] ?>" name="produk[<?= $i ?>][id_produk]">
 											</div>
 										</div>
@@ -142,7 +142,7 @@
 													<br/>
 													<?=$row['keterangan']?>
 												</p>
-												<input class="qty" type="number" value="0" name="produk[<?= $i ?>][qty]">
+												<input class="qty text-center" type="number" value="0" name="produk[<?= $i ?>][qty]">
 												<input type="hidden" value="<?= $row['id_produk'] ?>" name="produk[<?= $i ?>][id_produk]">
 											</div>
 										</div>

@@ -71,7 +71,7 @@
         $Transaksi->total_harga = $sub_total_produk;
         $Transaksi->updateHarga();
         
-        header("Location: index.php");
+        header("Location: transaksi_list.php?id=".$id_user."");
     }
     
     print('<pre>');print_r($new);

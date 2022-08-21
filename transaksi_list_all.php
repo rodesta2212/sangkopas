@@ -42,7 +42,6 @@
                 <div class="page-header">
                     <?php $Transaksi = $Transaksi->readAllTransaksi(); while ($row = $Transaksi->fetch(PDO::FETCH_ASSOC)) : ?>
                         <div class="card mb-2">
-
                             <div class="card-header row mx-0">
                                 <div class="col-6">
                                     <h4>Kode Transaksi : <?= $row['id_transaksi'] ?></h4>
@@ -52,7 +51,6 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <button class="btn btn-sm btn-success mb-2" data-toggle="modal" data-target="#verifikasiModal<?= $row['id_transaksi'] ?>">Verifikasi</button>
                                 <div class="row mb-1">
                                     <div class="col">
                                         <h4>Status Transaksi : <?= ucwords($row['status']) ?></h4>
@@ -110,6 +108,9 @@
                                         </tr>
                                     </tfoot>
                                 </table>
+                                <?php if($row['status'] != 'lunas'): ?>
+                                    <button class="btn btn-block btn-success mb-2" data-toggle="modal" data-target="#verifikasiModal<?= $row['id_transaksi'] ?>">Verifikasi Pembayaran</button>
+                                <?php endif;?>
                             </div>
                         </div>
                         <div class="modal fade" id="verifikasiModal<?= $row['id_transaksi'] ?>" tabindex="-1" role="dialog">
@@ -144,10 +145,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="status">Status</label>
-                                            <select name="status" id="status" class="form-control">
-                                                <option value="lunas">Lunas</option>
-                                                <option value="belum lunas">Belum Lunas</option>
-                                            </select>
+                                            <input type="text" class="form-control" name="status_read" id="status_read" value="Lunas" readonly>
+                                            <input type="hidden" name="status" id="status" value="lunas">
                                         </div>
                                         <div class="form-group">
                                             <label for="no_meja">Nomor Meja</label>

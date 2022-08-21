@@ -82,6 +82,9 @@
 									<th>No. HP</th>
 									<th>Jenis Kelamin</th>
                                     <th>Tanggal Lahir</th>
+									<?php if ($_SESSION['role'] == 'admin'): ?>
+										<th>Action</th>
+									<?php endif; ?>
 								</tr>
 							</thead>
 							<tbody>
@@ -102,6 +105,11 @@
                                     <?php $date = strtotime($row['tgl_lahir']); ?>
                                     <td><?=date('d M Y', $date);?></td>
                                     <!-- date format -->
+									<?php if ($_SESSION['role'] == 'admin'): ?>
+										<td>
+											<a class="dropdown-item link-action" href="pelanggan-send.php?id=<?php echo $row['id_pelanggan']; ?>"><i class="dw dw-mail"></i> Kirim</a> 
+										</td>
+									<?php endif; ?>
 								</tr>
                                 <?php $no++; endwhile; ?>
 							</tbody>

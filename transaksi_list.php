@@ -39,7 +39,7 @@
                 </div>
                 
                 <div class="page-header">
-                    <?php $Transaksi = $Transaksi->readAll(); while ($row = $Transaksi->fetch(PDO::FETCH_ASSOC)) : ?>
+                    <?php $no=0; $Transaksi = $Transaksi->readAll(); while ($row = $Transaksi->fetch(PDO::FETCH_ASSOC)) : ?>
                         <div class="card mb-2">
                             <div class="card-header row mx-0">
                                 <div class="col-6">
@@ -110,12 +110,16 @@
                                 <?php if($row['status'] == "belum bayar"):?>
                                     <form action="transaksi_batal.php" method="POST">
                                         <input type="hidden" name="id_transaksi" value="<?= $row['id_transaksi']?>">
-                                        <button type="submit" class="btn btn-block btn-danger text-capitalize">batal transaksi</button>
+                                        <button type="submit" class="btn btn-block btn-danger text-capitalize">Batalkan Transaksi</button>
                                     </form>
                                 <?php endif;?>
                             </div>
                         </div>
-                    <?php endwhile; ?>
+                    <?php $no++; endwhile; ?>
+
+                    <?php if ($no == 0): ?>
+                        <p class="text-center">Belum Ada Transaksi</p>
+                    <?php endif;?>
                 </div>
                 
                 
