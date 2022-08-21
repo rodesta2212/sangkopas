@@ -88,7 +88,7 @@
                                     <td><?=date('d M Y', $date_selesai);?></td>
                                     <!-- date format -->
 									<td>Rp. <?=$row['potongan']?></td>
-									<td><?=$row['keterangan']?></td>
+									<td><?=ucwords($row['keterangan'])?></td>
 									<td>
                                         <!-- <a class="dropdown-item link-action" href="diskon-detail.php?id=<?php echo $row['id_diskon']; ?>"><i class="dw dw-eye"></i> Detail</a> |  -->
 										<a class="dropdown-item link-action" href="diskon-update.php?id=<?php echo $row['id_diskon']; ?>" data-color="#265ed7"><i class="dw dw-edit-1"></i> Update</a> | 

@@ -137,7 +137,7 @@
                                         <div class="form-group">
                                             <label for="diskon">Diskon</label>
                                             <select name="diskon" id="diskon" class="form-control">
-                                                <option value="0">Pilih Diskon</option>
+                                                <option value="0">Tidak Ada Diskon</option>
                                                 <?php foreach($Diskon->readAll() as $d):?>
                                                     <option value="<?= $d['id_diskon'] ?>"><?= $d['nama'] ?></option>
                                                 <?php endforeach;?>

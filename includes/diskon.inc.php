@@ -56,7 +56,9 @@ class Diskon {
 	}
 
     function readAll() {
-		$query = "SELECT * FROM {$this->table_diskon} ORDER BY id_diskon ASC";
+		$query = "SELECT * FROM {$this->table_diskon} 
+		WHERE tgl_mulai >= CURDATE() AND CURDATE() <= tgl_selesai
+		ORDER BY id_diskon ASC";
 		$stmt = $this->conn->prepare( $query );
 		$stmt->execute();
 
