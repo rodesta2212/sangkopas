@@ -40,7 +40,7 @@
                 </div>
                 
                 <div class="page-header">
-                    <?php $Transaksi = $Transaksi->readAllTransaksi(); while ($row = $Transaksi->fetch(PDO::FETCH_ASSOC)) : ?>
+                    <?php $no=0; $Transaksi = $Transaksi->readAllTransaksi(); while ($row = $Transaksi->fetch(PDO::FETCH_ASSOC)) : ?>
                         <div class="card mb-2">
                             <div class="card-header row mx-0">
                                 <div class="col-6">
@@ -164,7 +164,11 @@
                                 </form>
                             </div>
                         </div>
-                    <?php endwhile; ?>
+                    <?php $no++; endwhile; ?>
+
+                    <?php if ($no == 0): ?>
+                        <p class="text-center">Belum Ada Transaksi</p>
+                    <?php endif;?>
                 </div>  
             <?php endif; ?>
             <!-- footer -->
