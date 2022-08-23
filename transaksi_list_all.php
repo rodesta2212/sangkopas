@@ -106,6 +106,16 @@
                                                     <td><?= number_format($subtotal,0,'.','.'); ?></td>
                                             <?php endif;?>
                                         </tr>
+                                        <tr>
+                                            <td colspan="5">
+                                                *Catatan : <br/>
+                                                <?php $no=1; foreach($TransaksiDetail->readAll() as $item): ?>
+                                                    <?php if($item['catatan'] != null):?>
+                                                        <?=$no;?>. <?=ucwords($item['nama'])?> <b>"<?=ucwords($item['catatan'])?>"</b> <br/>
+                                                    <?php endif;?>
+                                                <?php $no++; endforeach; ?>
+                                            </td>
+                                        </tr>
                                     </tfoot>
                                 </table>
                                 <?php if($row['status'] != 'lunas'): ?>

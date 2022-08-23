@@ -56,7 +56,17 @@ class Pelanggan {
 	}
 
     function readAll() {
-		$query = "SELECT * FROM {$this->table_pelanggan} ORDER BY id_pelanggan ASC";
+		$query = "SELECT * FROM {$this->table_pelanggan} ORDER BY nama ASC";
+		$stmt = $this->conn->prepare( $query );
+		$stmt->execute();
+
+		return $stmt;
+	}
+
+	function readAllHBD() {
+		$dateNow = date("m-d");
+
+		$query = "SELECT * FROM {$this->table_pelanggan} WHERE tgl_lahir LIKE '%".$dateNow."' ORDER BY nama ASC";
 		$stmt = $this->conn->prepare( $query );
 		$stmt->execute();
 

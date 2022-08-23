@@ -34,6 +34,7 @@
             if($cek_detail_transaksi['status'] != 0){
                 $TransaksiDetail->id_transaksi_detail =  $cek_detail_transaksi['id_transaksi_detail'];
                 $TransaksiDetail->jumlah =  $n['qty'] + $cek_detail_transaksi['jumlah'];
+                $TransaksiDetail->catatan =  $n['catatan'];
                 $TransaksiDetail->updateJumlah();
                 $Transaksi->id_transaksi = $cek_transaksi['id_transaksi'];
                 $Transaksi->total_harga = $cek_transaksi['total_harga'] +  ($n['qty'] * $Produk->harga);
@@ -45,6 +46,7 @@
                 $TransaksiDetail->id_produk =  $n['id_produk'];
                 $TransaksiDetail->harga =  $Produk->harga;
                 $TransaksiDetail->jumlah =  $n['qty'];
+                $TransaksiDetail->catatan =  $n['catatan'];
                 $TransaksiDetail->insert();
                 $Transaksi->id_transaksi = $cek_transaksi['id_transaksi'];
                 $Transaksi->total_harga = $cek_transaksi['total_harga'] +  ($n['qty'] * $Produk->harga);
@@ -65,6 +67,7 @@
             $TransaksiDetail->id_produk =  $n['id_produk'];
             $TransaksiDetail->harga =  $Produk->harga;
             $TransaksiDetail->jumlah =  $n['qty'];
+            $TransaksiDetail->catatan =  $n['catatan'];
             $TransaksiDetail->insert();
             $sub_total_produk += $n['qty'] * $Produk->harga;
         }

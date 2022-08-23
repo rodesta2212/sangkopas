@@ -4,12 +4,14 @@
 <?php
 	include("config.php");
 	include_once('includes/produk.inc.php');
+	include_once('includes/pelanggan.inc.php');
 
 	session_start();
 	if (!isset($_SESSION['id_user'])) echo "<script>location.href='login.php'</script>";
 	$config = new Config(); $db = $config->getConnection();
 
 	$Produk = new Produk($db);
+	$Pelanggan = new Pelanggan($db);
 ?>
 
 <!-- header -->
@@ -51,6 +53,56 @@
 						</div>
 					</div>
 				</div>
+				<!-- basic table  Start -->
+				<div class="pd-20 card-box mb-30">
+					<div class="clearfix mb-20">
+						<div class="pull-left">
+							<h4 class="text-blue h4"><i class="dw dw-birthday-cake-1"></i> Pelanggan Ulang Tahun</h4>
+						</div>
+					</div>
+					<table class="table">
+						<thead>
+							<tr class="text-center">
+								<th>No</th>
+								<th>Nama</th>
+								<th>Email</th>
+								<th>No. HP</th>
+								<th>Jenis Kelamin</th>
+                                <th>Tanggal Lahir</th>
+								<?php if ($_SESSION['role'] == 'admin'): ?>
+									<th>Action</th>
+								<?php endif; ?>
+							</tr>
+						</thead>
+						<tbody>
+							<?php $no=1; $Pelanggans = $Pelanggan->readAllHBD(); while ($row = $Pelanggans->fetch(PDO::FETCH_ASSOC)) : ?>
+								<tr class="text-center">
+									<td><?=$no?></td>
+									<td><?=$row['nama']?></td>
+									<td><?=$row['email']?></td>
+									<td>+62<?=$row['hp']?></td>
+									<td>
+										<?php if($row['jenis_kelamin'] == 'laki'): ?>
+											Laki - Laki
+										<?php else: ?>
+											Perempuan
+										<?php endif; ?>
+									</td>
+                                    <!-- date format -->
+                                    <?php $date = strtotime($row['tgl_lahir']); ?>
+                                    <td><?=date('d M Y', $date);?></td>
+                                    <!-- date format -->
+									<?php if ($_SESSION['role'] == 'admin'): ?>
+										<td>
+											<a class="dropdown-item link-action" href="pelanggan-send.php?id=<?php echo $row['id_pelanggan']; ?>"><i class="dw dw-mail"></i> Kirim</a> 
+										</td>
+									<?php endif; ?>
+								</tr>
+                            <?php $no++; endwhile; ?>
+						</tbody>
+					</table>
+				</div>
+				<!-- basic table  End -->
 			<?php endif; ?>
 
 			<!-- Pelanggan -->
@@ -99,6 +151,7 @@
 													<?=$row['keterangan']?>
 												</p>
 												<input class="qty text-center" type="number" value="0" name="produk[<?= $i ?>][qty]">
+												<input class="form-control" type="text" name="produk[<?= $i ?>][catatan]" placeholder="Catatan">
 												<input type="hidden" value="<?= $row['id_produk'] ?>" name="produk[<?= $i ?>][id_produk]">
 											</div>
 										</div>
@@ -122,6 +175,7 @@
 													<?=$row['keterangan']?>
 												</p>
 												<input class="qty text-center" type="number" value="0" name="produk[<?= $i ?>][qty]">
+												<input class="form-control" type="text" name="produk[<?= $i ?>][catatan]" placeholder="Catatan">
 												<input type="hidden" value="<?= $row['id_produk'] ?>" name="produk[<?= $i ?>][id_produk]">
 											</div>
 										</div>
@@ -145,6 +199,7 @@
 													<?=$row['keterangan']?>
 												</p>
 												<input class="qty text-center" type="number" value="0" name="produk[<?= $i ?>][qty]">
+												<input class="form-control" type="text" name="produk[<?= $i ?>][catatan]" placeholder="Catatan">
 												<input type="hidden" value="<?= $row['id_produk'] ?>" name="produk[<?= $i ?>][id_produk]">
 											</div>
 										</div>

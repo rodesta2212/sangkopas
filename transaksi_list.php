@@ -52,7 +52,7 @@
                             <div class="card-body">
                                 <div class="row mb-1">
                                     <div class="col">
-                                        <h4>Status Transaksi : <?= $row['status'] ?></h4>
+                                        <h4>Status Transaksi : <?= ucwords($row['status']) ?></h4>
                                     </div>
                                     <div class="col">
                                     <h4>Metode Pembayaran : <?= $row['metode_pembayaran'] != "" ? $row['metode_pembayaran'] : "-" ?></h4>
@@ -104,6 +104,16 @@
                                             <?php else:?>
                                                     <td><?= number_format($subtotal,0,'.','.'); ?></td>
                                             <?php endif;?>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5">
+                                                *Catatan : <br/>
+                                                <?php $no=1; foreach($TransaksiDetail->readAll() as $item): ?>
+                                                    <?php if($item['catatan'] != null):?>
+                                                        <?=$no;?>. <?=ucwords($item['nama'])?> <b>"<?=ucwords($item['catatan'])?>"</b> <br/>
+                                                    <?php endif;?>
+                                                <?php $no++; endforeach; ?>
+                                            </td>
                                         </tr>
                                     </tfoot>
                                 </table>

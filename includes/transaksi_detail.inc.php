@@ -10,6 +10,7 @@ class TransaksiDetail {
     public $id_produk;
     public $harga;
     public $jumlah;
+	public $catatan;
 
     public function __construct($db) {
 		$this->conn = $db;
@@ -17,8 +18,8 @@ class TransaksiDetail {
 
     function insert() {
         $query = "INSERT INTO {$this->table_transaksi_detail} 
-		(id_transaksi_detail, id_transaksi, id_produk, harga, jumlah) 
-		VALUES(:id_transaksi_detail, :id_transaksi, :id_produk, :harga, :jumlah)";
+		(id_transaksi_detail, id_transaksi, id_produk, harga, jumlah, catatan) 
+		VALUES(:id_transaksi_detail, :id_transaksi, :id_produk, :harga, :jumlah, :catatan)";
 
         $stmt = $this->conn->prepare($query);
         // produk
@@ -27,6 +28,7 @@ class TransaksiDetail {
 		$stmt->bindParam(':id_produk', $this->id_produk);
         $stmt->bindParam(':harga', $this->harga);
         $stmt->bindParam(':jumlah', $this->jumlah);
+		$stmt->bindParam(':catatan', $this->catatan);
 
 		if ($stmt->execute()) {
             // var_dump($stmt);
@@ -57,7 +59,7 @@ class TransaksiDetail {
 
     function readAll() {
 		
-		$query = "SELECT {$this->table_produk}.nama, {$this->table_produk}.kategori, {$this->table_produk}.harga, {$this->table_transaksi_detail}.jumlah FROM {$this->table_transaksi_detail} LEFT JOIN {$this->table_produk} ON {$this->table_transaksi_detail}.id_produk = {$this->table_produk}.id_produk WHERE id_transaksi = :id_transaksi";
+		$query = "SELECT {$this->table_produk}.nama, {$this->table_produk}.kategori, {$this->table_produk}.harga, {$this->table_transaksi_detail}.jumlah, {$this->table_transaksi_detail}.catatan FROM {$this->table_transaksi_detail} LEFT JOIN {$this->table_produk} ON {$this->table_transaksi_detail}.id_produk = {$this->table_produk}.id_produk WHERE id_transaksi = :id_transaksi";
 		$stmt = $this->conn->prepare( $query );
 		$stmt->bindParam(':id_transaksi', $this->id_transaksi);
 		$stmt->execute();
@@ -79,6 +81,7 @@ class TransaksiDetail {
 			$data['id_produk'] = $row['id_produk'];
 			$data['harga'] = $row['harga'];
 			$data['jumlah'] = $row['jumlah'];
+			$data['catatan'] = $row['catatan'];
 		}else{
 			$data['status'] = 0;
 		}
