@@ -38,6 +38,11 @@
 								<span class="micon dw dw-invoice-1"></span><span class="mtext">Transaksi</span>
 							</a>
 						</li>
+						<li>
+							<a href="laporan.php" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-invoice-1"></span><span class="mtext">Laporan</span>
+							</a>
+						</li>
 					<?php elseif ($_SESSION['role'] == 'kasir'): ?>
 						<!-- Kasir -->
 						<li>
@@ -53,6 +58,11 @@
 						<li>
 							<a href="transaksi_list_all.php" class="dropdown-toggle no-arrow">
 								<span class="micon dw dw-invoice-1"></span><span class="mtext">Transaksi</span>
+							</a>
+						</li>
+						<li>
+							<a href="laporan.php" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-invoice-1"></span><span class="mtext">Laporan</span>
 							</a>
 						</li>
 					<?php else: ?>
