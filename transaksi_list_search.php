@@ -37,7 +37,7 @@
                                 <h4>List Transaksi</h4>
                                 <form action="transaksi_list_search.php" method="GET">
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name="no_tran" placeholder="Cari nomor transaksi">
+                                        <input type="text" class="form-control" name="no_tran" placeholder="Cari nomor transaksi" value="<?= $_GET['no_tran']?>">
                                         <div class="input-group-append">
                                             <button type="submit" class="btn btn-info btn-sm">Cari</button>
                                         </div>
