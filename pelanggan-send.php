@@ -102,7 +102,7 @@
 								<label>Diskon<span style="color:red;">*</span></label>
 								<select class="selectpicker form-control form-control-lg" data-style="btn-outline-secondary btn-lg" title="Diskon" name="diskon" required>
 									<option selected disabled>Pilih...</option>
-									<?php $Diskons = $Diskon->readAll(); while ($row = $Diskons->fetch(PDO::FETCH_ASSOC)) : ?>
+									<?php $Diskons = $Diskon->readAllByDateNow(); while ($row = $Diskons->fetch(PDO::FETCH_ASSOC)) : ?>
 										<option value="<?=$row['nama']?> , <?=$row['tgl_mulai']?> , <?=$row['tgl_selesai']?> , <?=$row['potongan']?> , <?=$row['keterangan']?>"><?=ucwords($row['nama'])?></option>
 									<?php endwhile; ?>
 								</select>

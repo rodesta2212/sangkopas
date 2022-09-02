@@ -61,7 +61,10 @@
                     <div style="padding-right:15px;">
                         <!-- <a href="user-create"> -->
                             <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#createModal">Tambah</button>
-                        <!-- </a> -->
+							<?php if ($_SESSION['role'] == 'admin'): ?>
+								<a href="diskon-send.php" class="btn btn-primary float-right" style="margin-right:15px;"><i class="dw dw-mail"></i> Kirim</a>
+							<?php endif; ?>
+						<!-- </a> -->
                     </div>
                     <div class="pb-20">
 						<table class="data-table table stripe hover nowrap">
@@ -73,30 +76,51 @@
 									<th>Tgl Selesai</th>
 									<th>Potongan</th>
                                     <th>Keterangan</th>
-									<th>Action</th>
+									<?php if ($_SESSION['role'] == 'admin'): ?>
+										<th>Action</th>
+									<?php endif; ?>
 								</tr>
 							</thead>
-							<tbody>
-                                <?php $no=1; $Diskons = $Diskon->readAll(); while ($row = $Diskons->fetch(PDO::FETCH_ASSOC)) : ?>
-								<tr class="text-center">
-									<td><?=$no?></td>
-									<td><?=ucwords($row['nama'])?></td>
-									<!-- date format -->
-                                    <?php $date_mulai = strtotime($row['tgl_mulai']); ?>
-                                    <td><?=date('d M Y', $date_mulai);?></td>
-                                    <?php $date_selesai = strtotime($row['tgl_selesai']); ?>
-                                    <td><?=date('d M Y', $date_selesai);?></td>
-                                    <!-- date format -->
-									<td>Rp. <?=$row['potongan']?></td>
-									<td><?=ucwords($row['keterangan'])?></td>
-									<td>
-                                        <!-- <a class="dropdown-item link-action" href="diskon-detail.php?id=<?php echo $row['id_diskon']; ?>"><i class="dw dw-eye"></i> Detail</a> |  -->
-										<a class="dropdown-item link-action" href="diskon-update.php?id=<?php echo $row['id_diskon']; ?>" data-color="#265ed7"><i class="dw dw-edit-1"></i> Update</a> | 
-										<a class="dropdown-item link-action" href="diskon-delete.php?id=<?php echo $row['id_diskon']; ?>" data-color="#e95959"><i class="dw dw-delete-3"></i> Delete</a>
-									</td>
-								</tr>
-                                <?php $no++; endwhile; ?>
-							</tbody>
+							<?php if ($_SESSION['role'] == 'admin'): ?>
+								<tbody>
+									<?php $no=1; $Diskons = $Diskon->readAll(); while ($row = $Diskons->fetch(PDO::FETCH_ASSOC)) : ?>
+									<tr class="text-center">
+										<td><?=$no?></td>
+										<td><?=ucwords($row['nama'])?></td>
+										<!-- date format -->
+										<?php $date_mulai = strtotime($row['tgl_mulai']); ?>
+										<td><?=date('d M Y', $date_mulai);?></td>
+										<?php $date_selesai = strtotime($row['tgl_selesai']); ?>
+										<td><?=date('d M Y', $date_selesai);?></td>
+										<!-- date format -->
+										<td>Rp. <?=$row['potongan']?></td>
+										<td><?=ucwords($row['keterangan'])?></td>
+										<td>
+											<!-- <a class="dropdown-item link-action" href="diskon-detail.php?id=<?php echo $row['id_diskon']; ?>"><i class="dw dw-eye"></i> Detail</a> |  -->
+											<a class="dropdown-item link-action" href="diskon-update.php?id=<?php echo $row['id_diskon']; ?>" data-color="#265ed7"><i class="dw dw-edit-1"></i> Update</a> | 
+											<a class="dropdown-item link-action" href="diskon-delete.php?id=<?php echo $row['id_diskon']; ?>" data-color="#e95959"><i class="dw dw-delete-3"></i> Delete</a>
+										</td>
+									</tr>
+									<?php $no++; endwhile; ?>
+								</tbody>
+							<?php else: ?>
+								<tbody>
+									<?php $no=1; $Diskons = $Diskon->readAllByDateNow(); while ($row = $Diskons->fetch(PDO::FETCH_ASSOC)) : ?>
+									<tr class="text-center">
+										<td><?=$no?></td>
+										<td><?=ucwords($row['nama'])?></td>
+										<!-- date format -->
+										<?php $date_mulai = strtotime($row['tgl_mulai']); ?>
+										<td><?=date('d M Y', $date_mulai);?></td>
+										<?php $date_selesai = strtotime($row['tgl_selesai']); ?>
+										<td><?=date('d M Y', $date_selesai);?></td>
+										<!-- date format -->
+										<td>Rp. <?=$row['potongan']?></td>
+										<td><?=ucwords($row['keterangan'])?></td>
+									</tr>
+									<?php $no++; endwhile; ?>
+								</tbody>
+							<?php endif; ?>
 						</table>
 					</div>
 				</div>

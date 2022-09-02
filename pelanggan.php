@@ -83,7 +83,7 @@
 									<th>Jenis Kelamin</th>
                                     <th>Tanggal Lahir</th>
 									<?php if ($_SESSION['role'] == 'admin'): ?>
-										<th>Action</th>
+										<!-- <th>Action</th> -->
 									<?php endif; ?>
 								</tr>
 							</thead>
@@ -106,9 +106,9 @@
                                     <td><?=date('d M Y', $date);?></td>
                                     <!-- date format -->
 									<?php if ($_SESSION['role'] == 'admin'): ?>
-										<td>
+										<!-- <td>
 											<a class="dropdown-item link-action" href="pelanggan-send.php?id=<?php echo $row['id_pelanggan']; ?>"><i class="dw dw-mail"></i> Kirim</a> 
-										</td>
+										</td> -->
 									<?php endif; ?>
 								</tr>
                                 <?php $no++; endwhile; ?>

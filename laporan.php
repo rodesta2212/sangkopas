@@ -27,16 +27,9 @@
     <div class="main-container">
         <div class="pd-ltr-20">
             <div class="page-header">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="title">
-                            <h4>Laporan Penjualan</h4>
-                        </div>
-                    </div>
+                <div class="pd-20">
+					<h4 class="text-center h4"><i class="dw dw-analytics1"></i> Laporan</h4>
                 </div>
-            </div>
-                
-            <div class="page-header">
                 <table class="table table-striped">
                     <thead>
                         <tr>

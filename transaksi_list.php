@@ -32,7 +32,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="title">
-                                <h4>List Transaksi</h4>
+                                <h4 class="text-blue h4"><i class="dw dw-invoice-1"></i> Transaksi</h4>
                             </div>
                         </div>
                     </div>
