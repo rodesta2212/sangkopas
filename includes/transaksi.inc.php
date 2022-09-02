@@ -3,6 +3,8 @@
 class Transaksi {
     private $conn;
     private $table_transaksi = 'transaksi';
+    private $table_transaksi_detail = 'transaksi_detail';
+	private $table_user = 'user';
     private $table_diskon = 'diskon';
 
     public $id_transaksi;
@@ -179,4 +181,19 @@ class Transaksi {
 			return false;
 		}
     }
+
+	function get_laporan_penjualan()
+	{
+		$query = "SELECT a.tgl_transaksi, a.id_transaksi, b.username, SUM(c.harga * c.jumlah) AS subtotal, d.potongan
+		FROM {$this->table_transaksi} AS a
+		LEFT JOIN {$this->table_user} AS b ON a.id_user = b.id_user
+		LEFT JOIN {$this->table_transaksi_detail} AS c ON a.id_transaksi = c.id_transaksi
+		LEFT JOIN {$this->table_diskon} AS d ON a.id_diskon = d.id_diskon
+		GROUP BY a.id_transaksi
+		ORDER BY a.tgl_transaksi DESC";
+		$stmt = $this->conn->prepare( $query );
+		$stmt->execute();
+
+		return $stmt;
+	}
 }
