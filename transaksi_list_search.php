@@ -9,6 +9,7 @@
 	$Transaksi = new Transaksi($db);
 	$TransaksiDetail = new TransaksiDetail($db);
     $Diskon = new Diskon($db);
+    $Transaksi->no_tran = $_GET['no_tran'];
     session_start();
 ?>
 <!DOCTYPE html>
@@ -48,7 +49,11 @@
                 </div>
                 
                 <div class="page-header">
-                    <?php $no=0; $Transaksi = $Transaksi->readAllTransaksi(); while ($row = $Transaksi->fetch(PDO::FETCH_ASSOC)) : ?>
+                    <?php 
+                        $no=0; 
+                        $Transaksi = $Transaksi->readAllTransaksiSearch(); 
+                        while ($row = $Transaksi->fetch(PDO::FETCH_ASSOC)) : 
+                    ?>
                         <div class="card mb-2">
                             <div class="card-header row mx-0">
                                 <div class="col-6">

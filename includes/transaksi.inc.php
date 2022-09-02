@@ -77,6 +77,17 @@ class Transaksi {
 		return $stmt;
 	}
 
+	function readAllTransaksiSearch() {
+		$search = $this->no_tran;
+		$query = "SELECT * FROM {$this->table_transaksi} LEFT JOIN {$this->table_diskon} ON {$this->table_transaksi}.id_diskon = {$this->table_diskon}.id_diskon WHERE  {$this->table_transaksi}.id_transaksi LIKE '%$search%' ORDER BY tgl_transaksi DESC";
+		// print('<pre>');print_r($search);exit();
+		$stmt = $this->conn->prepare( $query );
+		$stmt->bindParam(':no_tran', $this->no_tran);
+		$stmt->execute();
+
+		return $stmt;
+	}
+
 	function readOne() {
 		$query = "SELECT * FROM {$this->table_transaksi} WHERE id_user = :id_user AND status = 'belum bayar' LIMIT 0,1";
 		$stmt = $this->conn->prepare($query);
