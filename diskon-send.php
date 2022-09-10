@@ -63,7 +63,7 @@
 					echo '</script>';
 				}
 			}
-			echo "<script>location.href='pelanggan.php'</script>";
+			echo "<script>location.href='diskon.php'</script>";
 		}
 	?>
 
