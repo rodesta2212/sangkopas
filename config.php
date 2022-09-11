@@ -1,9 +1,9 @@
 <?php
 class Config {
   private $host = "localhost";
-  private $db_name = "sangkopas";
+  private $db_name = "project-sangkopas";
   private $username = "root";
-  private $password = "root";
+  private $password = "";
   public $conn;
 
   public function getConnection() {
