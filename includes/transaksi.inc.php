@@ -78,11 +78,11 @@ class Transaksi {
 	}
 
 	function readAllTransaksiSearch() {
-		$search = $this->no_tran;
-		$query = "SELECT * FROM {$this->table_transaksi} LEFT JOIN {$this->table_diskon} ON {$this->table_transaksi}.id_diskon = {$this->table_diskon}.id_diskon WHERE  {$this->table_transaksi}.id_transaksi LIKE '%$search%' ORDER BY tgl_transaksi DESC";
+		$query = "SELECT * FROM {$this->table_transaksi} LEFT JOIN {$this->table_diskon} ON {$this->table_transaksi}.id_diskon = {$this->table_diskon}.id_diskon WHERE  {$this->table_transaksi}.tgl_transaksi BETWEEN :tanggal1 AND :tanggal2 ORDER BY tgl_transaksi DESC";
 		// print('<pre>');print_r($search);exit();
 		$stmt = $this->conn->prepare( $query );
-		$stmt->bindParam(':no_tran', $this->no_tran);
+		$stmt->bindParam(':tanggal1', $this->tanggal1);
+		$stmt->bindParam(':tanggal2', $this->tanggal2);
 		$stmt->execute();
 
 		return $stmt;
@@ -202,6 +202,18 @@ class Transaksi {
 		LEFT JOIN {$this->table_diskon} AS d ON a.id_diskon = d.id_diskon
 		GROUP BY a.id_transaksi
 		ORDER BY a.tgl_transaksi DESC";
+		$stmt = $this->conn->prepare( $query );
+		$stmt->execute();
+
+		return $stmt;
+	}
+
+	function get_laporan_kunjungan()
+	{
+		$query = "SELECT b.username, count(a.id_user) AS jumlah
+		FROM {$this->table_transaksi} AS A
+		LEFT JOIN {$this->table_user} AS b ON a.id_user = b.id_user
+		GROUP BY a.id_user";
 		$stmt = $this->conn->prepare( $query );
 		$stmt->execute();
 

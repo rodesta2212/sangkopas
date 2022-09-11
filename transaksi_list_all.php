@@ -34,9 +34,11 @@
                         <div class="col-12">
                             <div class="title">
                                 <h4 class="text-blue h4"><i class="dw dw-invoice-1"></i> Transaksi</h4>
-                                <form action="transaksi_list_search.php" method="GET">
+                                <form action="transaksi_list_search.php" method="GET" class="col-5 px-0">
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" name="no_tran" placeholder="Cari nomor transaksi">
+                                        <input type="date" name="tanggal1" class="form-control" >
+                                        <div class="col-1 d-flex align-items-center border">-</div>
+                                        <input type="date" name="tanggal2" class="form-control">
                                         <div class="input-group-append">
                                             <button type="submit" class="btn btn-info btn-sm">Cari</button>
                                         </div>
