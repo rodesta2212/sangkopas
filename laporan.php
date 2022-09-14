@@ -28,7 +28,6 @@
         <div class="pd-ltr-20">
             <div class="page-header">
                 <div class="pd-20">
-					<h4 class="text-center h4"><i class="dw dw-analytics1"></i> Laporan</h4>
                     <form action="laporan_search.php" method="GET" class="col-5 px-0">
                         <div class="input-group mb-3">
                             <input type="date" name="tanggal1" class="form-control" >
@@ -39,6 +38,7 @@
                             </div>
                         </div>
                     </form>
+					<h4 class="text-center h4"><i class="dw dw-analytics1"></i> Laporan</h4>
                 </div>
                 <table class="table table-striped">
                     <thead>
