@@ -208,6 +208,25 @@ class Transaksi {
 		return $stmt;
 	}
 
+	function get_laporan_penjualan_periode()
+	{
+		$query = "SELECT a.tgl_transaksi, a.id_transaksi, b.username, SUM(c.harga * c.jumlah) AS subtotal, d.potongan
+		FROM {$this->table_transaksi} AS a
+		LEFT JOIN {$this->table_user} AS b ON a.id_user = b.id_user
+		LEFT JOIN {$this->table_transaksi_detail} AS c ON a.id_transaksi = c.id_transaksi
+		LEFT JOIN {$this->table_diskon} AS d ON a.id_diskon = d.id_diskon
+		WHERE a.tgl_transaksi BETWEEN :tanggal1 AND :tanggal2
+		GROUP BY a.id_transaksi
+		ORDER BY a.tgl_transaksi DESC";
+
+		$stmt = $this->conn->prepare( $query );
+		$stmt->bindParam(':tanggal1', $this->tanggal1);
+		$stmt->bindParam(':tanggal2', $this->tanggal2);
+		$stmt->execute();
+
+		return $stmt;
+	}
+
 	function get_laporan_kunjungan()
 	{
 		$query = "SELECT b.username, count(a.id_user) AS jumlah
