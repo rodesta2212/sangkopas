@@ -9,6 +9,8 @@
     $TransaksiDetail = new TransaksiDetail($db);
     session_start();
     $Transaksi->id_user =  $_SESSION['id_user'];
+    $Transaksi->tanggal1 = $_GET['tanggal1'];
+    $Transaksi->tanggal2 = $_GET['tanggal2'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +55,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $no=1; $Transaksi = $Transaksi->get_laporan_penjualan(); while ($row = $Transaksi->fetch(PDO::FETCH_ASSOC)) : ?>
+                        <?php $no=1; $Transaksi = $Transaksi->get_laporan_penjualan_periode(); while ($row = $Transaksi->fetch(PDO::FETCH_ASSOC)) : ?>
                             <tr>
                                 <td><?= $no ?></td>
                                 <td><?= $row['tgl_transaksi'] ?></td>
