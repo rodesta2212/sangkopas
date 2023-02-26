@@ -200,6 +200,7 @@ class Transaksi {
 		LEFT JOIN {$this->table_user} AS b ON a.id_user = b.id_user
 		LEFT JOIN {$this->table_transaksi_detail} AS c ON a.id_transaksi = c.id_transaksi
 		LEFT JOIN {$this->table_diskon} AS d ON a.id_diskon = d.id_diskon
+		WHERE a.status='lunas'
 		GROUP BY a.id_transaksi
 		ORDER BY a.tgl_transaksi DESC";
 		$stmt = $this->conn->prepare( $query );
@@ -215,7 +216,7 @@ class Transaksi {
 		LEFT JOIN {$this->table_user} AS b ON a.id_user = b.id_user
 		LEFT JOIN {$this->table_transaksi_detail} AS c ON a.id_transaksi = c.id_transaksi
 		LEFT JOIN {$this->table_diskon} AS d ON a.id_diskon = d.id_diskon
-		WHERE a.tgl_transaksi BETWEEN :tanggal1 AND :tanggal2
+		WHERE a.tgl_transaksi BETWEEN :tanggal1 AND :tanggal2 AND a.status='lunas'
 		GROUP BY a.id_transaksi
 		ORDER BY a.tgl_transaksi DESC";
 
@@ -238,4 +239,31 @@ class Transaksi {
 
 		return $stmt;
 	}
+
+	// Laporan Grafik
+	function LaporanGrafik() {
+		$query = "SELECT COUNT(tgl_transaksi) AS jml_transaksi, tgl_transaksi 
+		FROM {$this->table_transaksi}
+		WHERE status = 'lunas'
+		GROUP BY tgl_transaksi";
+		$stmt = $this->conn->prepare( $query );
+		$stmt->execute();
+
+		return $stmt;
+	}
+
+	function LaporanGrafik_periode() {
+		$query = "SELECT COUNT(tgl_transaksi) AS jml_transaksi, tgl_transaksi 
+		FROM {$this->table_transaksi}
+		WHERE tgl_transaksi BETWEEN :tanggal1 AND :tanggal2 AND status='lunas'
+		GROUP BY id_transaksi
+		ORDER BY tgl_transaksi DESC";
+		$stmt = $this->conn->prepare( $query );
+		$stmt->bindParam(':tanggal1', $this->tanggal1);
+		$stmt->bindParam(':tanggal2', $this->tanggal2);
+		$stmt->execute();
+
+		return $stmt;
+	}
+
 }

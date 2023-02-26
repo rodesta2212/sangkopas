@@ -1,5 +1,8 @@
+<!DOCTYPE html>
+<html>
+
 <?php
-    include("config.php");
+	include("config.php");
     include_once('includes/transaksi.inc.php');
     include_once('includes/transaksi_detail.inc.php');
     $config = new Config(); 
@@ -12,40 +15,72 @@
     $Transaksi->tanggal1 = $_GET['tanggal1'];
     $Transaksi->tanggal2 = $_GET['tanggal2'];
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <?php include("header.php"); ?>
-</head>
+
+<!-- header -->
+<?php include("header.php"); ?>
+
 <body>
-    <?php include("head-navbar.php"); ?>
+	<!-- head navbar -->
+	<?php include("head-navbar.php"); ?>
 
-    <!-- right sidebar -->
-    <?php include("right-sidebar.php"); ?>
-    
-    <!-- left sidebar -->
-    <?php include("left-sidebar.php"); ?>
+	<!-- right sidebar -->
+	<?php include("right-sidebar.php"); ?>
 
-    <div class="main-container">
+	<!-- left sidebar -->
+	<?php include("left-sidebar.php"); ?>
+
+	<div class="mobile-menu-overlay"></div>
+
+	<div class="main-container">
         <div class="pd-ltr-20">
+            <div class="card-box pd-20 height-100-p mb-30">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <form action="laporan_search.php" method="GET" class="col-5 px-0">
+                            <div class="input-group mb-3">
+                                <input type="date" name="tanggal1" class="form-control" >
+                                <div class="col-1 d-flex align-items-center border">-</div>
+                                <input type="date" name="tanggal2" class="form-control">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-info btn-sm">Cari</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pd-ltr-20">
+            <div class="card-box pd-20 height-100-p mb-30">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="h5 mb-0">Laporan Grafik</div>
+                        <div id="bar-transaksi"></div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                Morris.Bar({
+                    element: 'bar-transaksi',
+                    data: [
+                        <?php $Grafik = $Transaksi->LaporanGrafik_periode(); while ($row = $Grafik->fetch(PDO::FETCH_ASSOC)) : ?>
+                            { x: '<?=$row['tgl_transaksi']?>', data1: <?=$row['jml_transaksi']?> },
+                        <?php endwhile; ?>
+                    ],
+                    xkey: 'x',
+                    ykeys: ['data1'],
+                    labels: ['Transaksi'],
+                    // barColors: ["#0000FF"]
+                });
+            </script>
             <div class="page-header">
                 <div class="pd-20">
 					<h4 class="text-center h4"><i class="dw dw-analytics1"></i> Laporan</h4>
-                    <form action="laporan_search.php" method="GET" class="col-5 px-0">
-                        <div class="input-group mb-3">
-                            <input type="date" name="tanggal1" class="form-control" >
-                            <div class="col-1 d-flex align-items-center border">-</div>
-                            <input type="date" name="tanggal2" class="form-control">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-info btn-sm">Cari</button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col">No</th>
                             <th scope="col">Tgl Transaksi</th>
                             <th scope="col">Kode Transaksi</th>
                             <th scope="col">Pembeli</th>
@@ -74,23 +109,24 @@
                     </tbody>
                 </table>
             </div>
+            
             <!-- footer -->
             <?php include("footer.php"); ?>
         </div>
     </div>
+	<!-- js -->
+	<script src="vendors/scripts/core.js"></script>
+	<script src="vendors/scripts/script.min.js"></script>
+	<script src="vendors/scripts/process.js"></script>
+	<script src="vendors/scripts/layout-settings.js"></script>
+	<script src="src/plugins/apexcharts/apexcharts.min.js"></script>
+	<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+	<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+	<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+	<script src="vendors/scripts/dashboard.js"></script>
 
-    <script src="vendors/scripts/core.js"></script>
-    <script src="vendors/scripts/script.min.js"></script>
-    <script src="vendors/scripts/process.js"></script>
-    <script src="vendors/scripts/layout-settings.js"></script>
-    <script src="src/plugins/apexcharts/apexcharts.min.js"></script>
-    <script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-    <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-    <script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-    <script src="vendors/scripts/dashboard.js"></script>
-    <!-- bootstrap-touchspin js -->
-    <script src="src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-    <script src="vendors/scripts/advanced-components.js"></script>
+	
+
 </body>
 </html>
