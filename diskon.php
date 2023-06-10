@@ -60,8 +60,8 @@
                     </div>
                     <div style="padding-right:15px;">
                         <!-- <a href="user-create"> -->
-                            <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#createModal">Tambah</button>
 							<?php if ($_SESSION['role'] == 'admin'): ?>
+								<button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#createModal">Tambah</button>
 								<a href="diskon-send.php" class="btn btn-primary float-right" style="margin-right:15px;"><i class="dw dw-mail"></i> Kirim</a>
 							<?php endif; ?>
 						<!-- </a> -->

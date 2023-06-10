@@ -34,15 +34,15 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Nama User</th>
-                            <th scope="col">Jumlah Kunjungan</th>
+                            <th scope="col">Nama Produk</th>
+                            <th scope="col">Jumlah Terjual</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $no=1; $Transaksi = $Transaksi->get_laporan_kunjungan(); while ($row = $Transaksi->fetch(PDO::FETCH_ASSOC)) : ?>
+                        <?php $no=1; $Transaksi = $Transaksi->get_laporan_produk(); while ($row = $Transaksi->fetch(PDO::FETCH_ASSOC)) : ?>
                             <tr>
                                 <td><?= $no ?></td>
-                                <td><?=ucwords($row['username'])?></td>
+                                <td><?=ucwords($row['nama_produk'])?></td>
                                 <td><?= $row['jumlah'] ?></td>
                             </tr>
                         <?php $no++; endwhile; ?>

@@ -26,7 +26,7 @@
 	<div class="login-header box-shadow" style="background-color: #334249;">
 		<div class="container-fluid d-flex justify-content-between align-items-center">
 			<div class="brand-logo">
-				<a href="login.html">
+				<a href="#">
 					<img src="vendors/images/LogoSangko-removebg.png" alt="">
 				</a>
 			</div>

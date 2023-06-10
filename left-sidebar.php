@@ -45,7 +45,12 @@
 						</li>
 						<li>
 							<a href="laporan_kunjungan.php" class="dropdown-toggle no-arrow">
-								<span class="micon dw dw-analytics1"></span><span class="mtext">Laporan Kunjungan</span>
+								<span class="micon dw dw-analytics-5"></span><span class="mtext">Laporan Kunjungan</span>
+							</a>
+						</li>
+						<li>
+							<a href="laporan_produk.php" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-analytics-3"></span><span class="mtext">Laporan Produk</span>
 							</a>
 						</li>
 					<?php elseif ($_SESSION['role'] == 'kasir'): ?>
