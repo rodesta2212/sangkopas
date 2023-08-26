@@ -231,10 +231,10 @@ class Transaksi {
 
 	function get_laporan_kunjungan()
 	{
-		$query = "SELECT b.username, count(a.id_user) AS jumlah
+		$query = "SELECT B.username, count(A.id_user) AS jumlah
 		FROM {$this->table_transaksi} AS A
-		LEFT JOIN {$this->table_user} AS b ON a.id_user = b.id_user
-		GROUP BY a.id_user
+		LEFT JOIN {$this->table_user} AS B ON A.id_user = B.id_user
+		GROUP BY A.id_user
 		ORDER BY jumlah DESC";
 		$stmt = $this->conn->prepare( $query );
 		$stmt->execute();
@@ -244,10 +244,10 @@ class Transaksi {
 
 	function get_laporan_produk()
 	{
-		$query = "SELECT b.nama AS nama_produk, count(a.id_produk) AS jumlah
+		$query = "SELECT B.nama AS nama_produk, count(A.id_produk) AS jumlah
 		FROM {$this->table_transaksi_detail} AS A
-		LEFT JOIN {$this->table_produk} AS b ON a.id_produk = b.id_produk
-		GROUP BY a.id_produk
+		LEFT JOIN {$this->table_produk} AS B ON A.id_produk = B.id_produk
+		GROUP BY A.id_produk
 		ORDER BY jumlah DESC";
 		$stmt = $this->conn->prepare( $query );
 		$stmt->execute();

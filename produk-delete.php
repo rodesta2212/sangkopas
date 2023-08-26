@@ -15,7 +15,7 @@
     if($Produk->delete()){
         echo "<script>alert('Berhasil Hapus Data');location.href='produk.php';</script>";
     } else{
-        echo "<script>alert('Gagal Hapus Data');location.href='ujian.php';</script>";
+        echo "<script>alert('Gagal Hapus Data');location.href='produk.php';</script>";
     }
 
 ?>
